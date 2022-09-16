@@ -18,3 +18,12 @@ internal actions needed:
 
 maybe, we can maintain connection with remote to load thumbnails & lists for given query & perform queries for whole database of screenshots
 
+### Mockups:
+
+[Mockplus](https://rp.mockplus.com/run/i-b9c73NMF/MnCD5_4_bd/eBZjKdLqm2)
+
+### Simular apps:
+    
+Slidebox - unsupported since 2016, no path customization, no notification, no backups
+
+*startup team stuff goes here*
