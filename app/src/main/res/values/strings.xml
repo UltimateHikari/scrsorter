@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">scrsorter</string>
+    <string name="start_listactivity">Start ListActivity</string>
+    <string name="loremipsum">Lorem Ipsum</string>
+    <string name="example_button">example button</string>
+    <string name="editable_text">editable text</string>
+    <string name="todo">TODO</string>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+</resources>
