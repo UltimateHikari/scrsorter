@@ -1,30 +1,24 @@
 package ru.ultimatehikari.scrsorter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class FrameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.listcontainer, new ListFragment(), "LIST")
+                .commit();
+        setContentView(R.layout.activity_frame);
 
     }
 
-    public void onLBtnClick(View view) {
-        Log.i("BTN", "clicked");
-        startActivity(new Intent(this, ListActivity.class));
-    }
-
-    public void onFBtnClick(View view) {
-        Log.i("BTN", "clicked");
-        startActivity(new Intent(this, FrameActivity.class));
-    }
     @Override
     protected void onStart(){
         super.onStart();
