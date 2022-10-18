@@ -12,11 +12,12 @@ public class FrameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.listcontainer, new ListFragment(), "LIST")
-                .commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.listcontainer, new ListFragment(), "LIST")
+                    .commit();
+        }
         setContentView(R.layout.activity_frame);
-
     }
 
     @Override

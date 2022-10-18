@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,11 +74,13 @@ public class ListFragment extends Fragment implements View.OnClickListener {
         if(getActivity() == null){
             return;
         }
-        Log.i("CLICK", this.toString());
-        //TODO beautify fragment here
+
+        Button b = (Button)view;
+        Log.i("CLICK", b.getText().toString());
+        Fragment details = DetailsFragment.newInstance(b.getText().toString());
+
         getActivity().getSupportFragmentManager().beginTransaction()
-                .add(R.id.detailscontainer, DetailsFragment.newInstance(view.toString()))
-                .addToBackStack(null)
+                .replace(R.id.detailscontainer, details)
                 .commit();
     }
 
