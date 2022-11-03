@@ -1,4 +1,4 @@
-package ru.ultimatehikari.scrsorter;
+package ru.ultimatehikari.scrsorter.ui.lessons;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Objects;
+import ru.ultimatehikari.scrsorter.R;
 
 /**
  * A simple {@link Fragment} subclass.

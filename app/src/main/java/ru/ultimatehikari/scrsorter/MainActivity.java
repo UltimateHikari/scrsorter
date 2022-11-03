@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import ru.ultimatehikari.scrsorter.ui.RecyclerActivity;
+import ru.ultimatehikari.scrsorter.ui.lessons.FrameActivity;
+import ru.ultimatehikari.scrsorter.ui.lessons.ListActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -25,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         Log.i("BTN", "clicked");
         startActivity(new Intent(this, FrameActivity.class));
     }
+
+    public void onRBtnClick(View view) {
+        Log.i("BTN", "clicked");
+        startActivity(new Intent(this, RecyclerActivity.class));
+    }
+
     @Override
     protected void onStart(){
         super.onStart();

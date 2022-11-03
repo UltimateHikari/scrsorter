@@ -1,4 +1,4 @@
-package ru.ultimatehikari.scrsorter;
+package ru.ultimatehikari.scrsorter.ui.lessons;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import ru.ultimatehikari.scrsorter.R;
 
 public class ListActivity extends AppCompatActivity {
     @Override

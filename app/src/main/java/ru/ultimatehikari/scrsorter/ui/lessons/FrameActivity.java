@@ -1,11 +1,11 @@
-package ru.ultimatehikari.scrsorter;
+package ru.ultimatehikari.scrsorter.ui.lessons;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import ru.ultimatehikari.scrsorter.R;
 
 public class FrameActivity extends AppCompatActivity {
 

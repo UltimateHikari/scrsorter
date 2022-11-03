@@ -21,5 +21,6 @@
     <string name="show_text_1">show text 1</string>
     <string name="show_text_3">show text 3</string>
     <string name="show_text_2">show text 2</string>
+    <string name="start_recyclerview">start recyclerview</string>
 
 </resources>
