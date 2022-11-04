@@ -18,9 +18,9 @@ import ru.ultimatehikari.scrsorter.model.Picture;
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PicturesViewHolder> {
 
-    List<Picture> pictures = Collections.emptyList();
+    List<? extends Picture> pictures = Collections.emptyList();
 
-    void setPictures(List<Picture> newPictures){
+    void setPictures(List<? extends Picture> newPictures){
         pictures = newPictures;
         notifyDataSetChanged();
     }

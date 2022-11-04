@@ -32,7 +32,6 @@
         android:ellipsize="end"
         android:id="@+id/name"
         app:layout_constraintEnd_toStartOf="@id/more"
-        android:background="@color/teal_200"
         app:layout_constraintTop_toTopOf="@id/picture"
         app:layout_constraintStart_toEndOf="@id/picture"
         >

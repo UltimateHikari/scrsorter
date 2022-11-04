@@ -3,6 +3,7 @@ package ru.ultimatehikari.scrsorter.data;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -14,6 +15,7 @@ import com.github.javafaker.Faker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -31,7 +33,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PictureDao pictureDao();
 
-    @Getter
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 
     public static AppDatabase getInstance(final Context context, final AppExecutorsPool pool) {
@@ -74,5 +75,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private void setDatabaseCreated() {
         isDatabaseCreated.postValue(true);
+    }
+
+    public LiveData<Boolean> getDatabaseCreated() {
+        return isDatabaseCreated;
     }
 }
