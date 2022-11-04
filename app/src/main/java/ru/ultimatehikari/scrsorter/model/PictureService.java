@@ -10,15 +10,27 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
+
+/*
+ * Deprecated in favor of ViewModel
+ */
 public class PictureService {
     private final ArrayList<Picture> pictures;
     private final ArrayList<Consumer<List<Picture>>> listeners = new ArrayList<>();
     private static final Integer MAGIC_COUNT = 100;
 
     public PictureService(){
-        var faker = Faker.instance();
+        // Deprecated: moved to Room ORM
+        Faker faker = new Faker();
         pictures = IntStream.range(0,MAGIC_COUNT)
-                .mapToObj(i -> new Picture(Long.valueOf(i), faker.name().name(), "..."))
+                .mapToObj(i -> {
+                    PictureEntity picture = new PictureEntity();
+                    picture.setId((long) i);
+                    picture.setName(faker.name().name());
+                    picture.setUrl("...");
+                    return picture;
+                })
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -28,7 +40,7 @@ public class PictureService {
 
     public void deletePicture(Picture picture){
         OptionalInt result = IntStream.range(0, pictures.size())
-                .filter(x -> picture.id.equals(pictures.get(x).id))
+                .filter(x -> picture.getId().equals(pictures.get(x).getId()))
                 .findFirst();
 
         if (result.isPresent())
@@ -40,7 +52,7 @@ public class PictureService {
 
     public void moveUp(Picture picture){
         OptionalInt result = IntStream.range(0, pictures.size())
-                .filter(x -> picture.id.equals(pictures.get(x).id))
+                .filter(x -> picture.getId().equals(pictures.get(x).getId()))
                 .findFirst();
         if (result.isPresent() && result.getAsInt() > 1)
         {

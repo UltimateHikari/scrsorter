@@ -37,14 +37,14 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
     public void onBindViewHolder(@NonNull PicturesViewHolder holder, int position) {
         var picture = pictures.get(position);
 
-        holder.singlePictureBinding.name.setText(picture.name);
-        holder.singlePictureBinding.details.setText(picture.name);
+        holder.singlePictureBinding.name.setText(picture.getName());
+        holder.singlePictureBinding.details.setText(picture.getName());
         holder.singlePictureBinding.more.setOnClickListener(view -> {
-            Log.i("LOG_TAG", "Full Name: " + picture.name);
+            Log.i("LOG_TAG", "Full Name: " + picture.getName());
         });
-        if(!picture.photourl.isEmpty()){
+        if(!picture.getUrl().isEmpty()){
             Glide.with(holder.singlePictureBinding.picture.getContext())
-                    .load(picture.photourl)
+                    .load(picture.getUrl())
                     .circleCrop()
                     .placeholder(R.drawable.ic_baseline_person_24)
                     .error(R.drawable.ic_baseline_person_24)

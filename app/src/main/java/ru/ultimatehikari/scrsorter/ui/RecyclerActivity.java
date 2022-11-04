@@ -35,15 +35,15 @@ public class RecyclerActivity extends AppCompatActivity {
         binding.recycler.setAdapter(adapter);
 
         picturesListener = (pictures) -> {adapter.setPictures(pictures);};
-        service = ((App)getApplication()).getService();
-
-        service.addListener(picturesListener);
+//        service = ((App)getApplication()).getService();
+//
+//        service.addListener(picturesListener);
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        service.removeListener(picturesListener);
+        //service.removeListener(picturesListener);
     }
 }
