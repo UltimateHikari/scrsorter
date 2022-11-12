@@ -8,14 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
-import ru.ultimatehikari.scrsorter.App;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 import ru.ultimatehikari.scrsorter.databinding.ActivityRecyclerBinding;
-import ru.ultimatehikari.scrsorter.model.Picture;
-import ru.ultimatehikari.scrsorter.model.PictureService;
 import ru.ultimatehikari.scrsorter.viewmodel.PictureListViewModel;
 
 public class RecyclerActivity extends AppCompatActivity {
@@ -32,7 +27,7 @@ public class RecyclerActivity extends AppCompatActivity {
         PictureListViewModel viewModel =
                 new ViewModelProvider(this).get(PictureListViewModel.class);
 
-        subcribeToViewModel(viewModel.getPictures());
+        subscribeToViewModel(viewModel.getPictures());
 
         binding = ActivityRecyclerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -51,7 +46,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
     }
 
-    private void subcribeToViewModel(LiveData<List<PictureEntity>> liveData) {
+    private void subscribeToViewModel(LiveData<List<PictureEntity>> liveData) {
         liveData.observe(this, pictures -> {
             adapter.setPictures(pictures);
         });

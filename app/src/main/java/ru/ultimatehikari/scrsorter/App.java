@@ -14,7 +14,7 @@ public class App extends Application {
      * The application object is not guaranteed to stay in memory forever, it will get killed.
      */
 
-    private AppExecutorsPool appExecutorsPool;
+    private AppExecutorsPool appExecutorsPool; //TODO: replace with WorkManager
 
     @Override
     public void onCreate() {

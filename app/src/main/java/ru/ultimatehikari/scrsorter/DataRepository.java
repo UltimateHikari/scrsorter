@@ -14,7 +14,7 @@ public class DataRepository {
 
     private final MediatorLiveData<List<PictureEntity>> observablePictures;
 
-    public DataRepository(AppDatabase database) {
+    private DataRepository(AppDatabase database) {
         this.database = database;
         observablePictures = new MediatorLiveData<>();
 
@@ -37,7 +37,7 @@ public class DataRepository {
         return instance;
     }
 
-        public LiveData<List<PictureEntity>> getPictures() {
+    public LiveData<List<PictureEntity>> getPictures() {
         return observablePictures;
     }
 }

@@ -1,6 +1,7 @@
 package ru.ultimatehikari.scrsorter.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -47,13 +48,14 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static AppDatabase populateDatabase(Context applicationContext, AppExecutorsPool pool) {
-        return Room.databaseBuilder(applicationContext, AppDatabase.class,DATABASE_NAME)
+        AppDatabase db = Room.databaseBuilder(applicationContext, AppDatabase.class,DATABASE_NAME)
                 .addCallback(new Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
                         pool.getPoolDiskIO().execute(() -> {
                             //TODO: move to Generator/Loader class
+                            Log.i("DB", "generating..");
                             Faker faker = new Faker();
                             AppDatabase database = AppDatabase.getInstance(applicationContext, pool);
                             List<PictureEntity> pictures = IntStream.range(0,MAGIC_COUNT)
@@ -67,10 +69,14 @@ public abstract class AppDatabase extends RoomDatabase {
                                     .collect(Collectors.toCollection(ArrayList::new));
                             database.runInTransaction(() -> {database.pictureDao().insertAll(pictures);});
                             database.setDatabaseCreated();
+                            Log.i("DB", "generated");
                         });
                     }
                 })
                 .build();
+        // to force onCreate db hook
+        db.query("select 1", null);
+        return db;
     }
 
     private void setDatabaseCreated() {

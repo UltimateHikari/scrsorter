@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/settings"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SettingsActivity"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_end"
+        app:layout_constraintGuide_end="15dp"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_start"
+        app:layout_constraintGuide_begin="15dp"
+        android:orientation="vertical"/>
+
+    <TextView
+        android:id="@+id/period_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        tools:text="Notification period"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/period_spinner"
+        />
+
+    <Spinner
+        android:id="@+id/period_spinner"
+        android:layout_height="10dp"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/period_text"
+        app:layout_constraintBottom_toBottomOf="@id/period_text"
+        />
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        tools:text="Notification time"
+        app:layout_constraintTop_toBottomOf="@id/period_text"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/time_spinner"
+        />
+
+    <Spinner
+        android:id="@+id/time_spinner"
+        android:layout_height="10dp"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/time_text"
+        app:layout_constraintBottom_toBottomOf="@id/time_text"
+        />
+
+    <TextView
+        android:id="@+id/amount_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        tools:text="Photos to show"
+        app:layout_constraintTop_toBottomOf="@id/time_text"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/amount_spinner"
+        />
+
+    <Spinner
+        android:id="@+id/amount_spinner"
+        android:layout_height="10dp"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/amount_text"
+        app:layout_constraintBottom_toBottomOf="@id/amount_text"
+        />
+
+    <TextView
+        android:id="@+id/folders_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        tools:text="Folders to track"
+        app:layout_constraintTop_toBottomOf="@id/amount_text"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/folders_button"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginStart="15dp"
+        tools:text="Placeholder text"
+        android:id="@+id/folder_details"
+        app:layout_constraintEnd_toStartOf="@id/folders_button"
+        app:layout_constraintTop_toBottomOf="@id/folders_text"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/folders_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/browse"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/folders_text"
+        app:layout_constraintBottom_toBottomOf="@id/folders_text"
+        app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:background="?android:attr/selectableItemBackgroundBorderless"/>
+
+    <TextView
+        android:id="@+id/backup_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        tools:text="Backup all tagged"
+        app:layout_constraintTop_toBottomOf="@id/folder_details"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/backup_button"
+        />
+
+    <Button
+        android:id="@+id/backup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backup"
+        app:layout_constraintTop_toTopOf="@id/backup_text"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        />
+
+    <TextView
+        android:id="@+id/delete_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        tools:text="Delete all backed"
+        app:layout_constraintTop_toBottomOf="@id/backup_button"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/backup_button"
+        />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        app:layout_constraintTop_toTopOf="@id/delete_text"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        />
+
+    <TextView
+        android:id="@+id/location_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        tools:text="Folders to track"
+        app:layout_constraintTop_toBottomOf="@id/delete_button"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/location_button"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tools:text="Placeholder text"
+        android:id="@+id/location_details"
+        app:layout_constraintEnd_toStartOf="@id/location_button"
+        app:layout_constraintTop_toBottomOf="@id/location_text"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/location_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/browse"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/location_text"
+        app:layout_constraintBottom_toBottomOf="@id/location_text"
+        app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:background="?android:attr/selectableItemBackgroundBorderless"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
