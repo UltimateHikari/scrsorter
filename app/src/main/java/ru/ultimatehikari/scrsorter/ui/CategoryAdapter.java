@@ -44,8 +44,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.singleCategoryBinding.text.setText(category);
 
         holder.singleCategoryBinding.text.setOnClickListener(
-                Navigation.createNavigateOnClickListener(R.id.action_categoryListFragment_to_FirstFragment)
+                Navigation.createNavigateOnClickListener(R.id.action_categoryListFragment_to_pictureListFragment)
         );
+
+//        holder.singleCategoryBinding.text.setOnClickListener(
+//                Navigation.createNavigateOnClickListener(R.id.action_categoryListFragment_to_FirstFragment)
+//        );
 
 //        holder.singleCategoryBinding.text.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -32,6 +32,14 @@
         <action
             android:id="@+id/action_categoryListFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_categoryListFragment_to_pictureListFragment"
+            app:destination="@id/pictureListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/pictureListFragment"
+        android:name="ru.ultimatehikari.scrsorter.ui.PictureListFragment"
+        android:label="Pictures"
+        tools:layout="@layout/fragment_pictures_list" />
 
 </navigation>

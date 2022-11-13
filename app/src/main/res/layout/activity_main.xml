@@ -27,24 +27,12 @@
         android:onClick="onFBtnClick"
         android:text="@string/start_frameactivity"
         app:layout_constraintTop_toBottomOf="@id/listbutton"
-        app:layout_constraintBottom_toTopOf="@id/recyclerbutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </Button>
-
-    <Button
-        android:id="@+id/recyclerbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onRBtnClick"
-        android:text="@string/start_recyclerview"
         app:layout_constraintBottom_toTopOf="@id/appbutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/framebutton"
         app:layout_constraintStart_toStartOf="parent">
 
     </Button>
+
 
     <Button
         android:id="@+id/appbutton"
@@ -52,7 +40,7 @@
         android:layout_height="wrap_content"
         android:onClick="onABtnClick"
         android:text="@string/start_app"
-        app:layout_constraintBottom_toBottomOf="@id/recyclerbutton"
+        app:layout_constraintBottom_toBottomOf="@id/appbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
