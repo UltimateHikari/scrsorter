@@ -44,5 +44,6 @@
     <string name="backup_all_tagged">Backup all tagged</string>
     <string name="delete_all_backed">Delete all backed</string>
     <string name="folders_text">Folders to track</string>
+    <string name="placeholder_category">Placeholder category</string>
 
 </resources>
