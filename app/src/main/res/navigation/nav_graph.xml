@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="ru.ultimatehikari.scrsorter.ui.CategoryListFragment"
-        android:label="scrsorter"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_category_list" >
         <action
             android:id="@+id/action_categoryListFragment_to_FirstFragment"
