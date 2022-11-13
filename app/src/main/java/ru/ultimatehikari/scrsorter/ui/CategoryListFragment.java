@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.Arrays;
 
+import ru.ultimatehikari.scrsorter.data.MockGenerator;
 import ru.ultimatehikari.scrsorter.databinding.FragmentCategoryListBinding;
 
 public class CategoryListFragment extends Fragment {
@@ -43,6 +44,6 @@ public class CategoryListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter.setCategories(Arrays.asList("Category-1", "Category-2", "Category-3"));
+        adapter.setCategories(MockGenerator.generateCategories());
     }
 }

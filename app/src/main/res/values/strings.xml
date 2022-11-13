@@ -46,5 +46,6 @@
     <string name="folders_text">Folders to track</string>
     <string name="placeholder_category">Placeholder category</string>
     <string name="search_category_hint">Search category</string>
+    <string name="add_category">Add category</string>
 
 </resources>

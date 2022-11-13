@@ -29,7 +29,6 @@ import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "pictures_database";
-    private static final int MAGIC_COUNT = 100;
     private static AppDatabase instance;
 
     public abstract PictureDao pictureDao();
@@ -56,18 +55,9 @@ public abstract class AppDatabase extends RoomDatabase {
                         pool.getPoolDiskIO().execute(() -> {
                             //TODO: move to Generator/Loader class
                             Log.i("DB", "generating..");
-                            Faker faker = new Faker();
                             AppDatabase database = AppDatabase.getInstance(applicationContext, pool);
-                            List<PictureEntity> pictures = IntStream.range(0,MAGIC_COUNT)
-                                    .mapToObj(i -> {
-                                        PictureEntity picture = new PictureEntity();
-                                        picture.setId((long) i);
-                                        picture.setName(faker.name().name());
-                                        picture.setUrl("...");
-                                        return picture;
-                                    })
-                                    .collect(Collectors.toCollection(ArrayList::new));
-                            database.runInTransaction(() -> {database.pictureDao().insertAll(pictures);});
+
+                            database.runInTransaction(() -> {database.pictureDao().insertAll(MockGenerator.generatePictures());});
                             database.setDatabaseCreated();
                             Log.i("DB", "generated");
                         });

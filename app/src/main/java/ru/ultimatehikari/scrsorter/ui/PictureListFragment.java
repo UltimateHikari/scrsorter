@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.Arrays;
 import java.util.List;
 
+import ru.ultimatehikari.scrsorter.data.MockGenerator;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 import ru.ultimatehikari.scrsorter.databinding.FragmentPicturesListBinding;
 import ru.ultimatehikari.scrsorter.viewmodel.PictureListViewModel;
@@ -31,7 +32,6 @@ public class PictureListFragment extends Fragment {
                 new ViewModelProvider(requireActivity()).get(PictureListViewModel.class);
 
         subscribeToViewModel(viewModel.getPictures());
-
 
     }
 
@@ -51,7 +51,8 @@ public class PictureListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //adapter.setPictures(Arrays.asList(, "Category-2", "Category-3"));
+        //TODO: remove
+        adapter.setPictures(MockGenerator.generatePictures());
     }
 
     private void subscribeToViewModel(LiveData<List<PictureEntity>> liveData) {
