@@ -35,5 +35,14 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="notification_period">Notification period</string>
+    <string name="notification_time">Notification time</string>
+    <string name="photos_to_show">Photos to show</string>
+    <string name="folders_to_track">Folders to track</string>
+    <string name="amount_tooltip">Amount of suggested untagged photos in each notification</string>
+    <string name="placeholder_text">Placeholder text</string>
+    <string name="backup_all_tagged">Backup all tagged</string>
+    <string name="delete_all_backed">Delete all backed</string>
+    <string name="folders_text">Folders to track</string>
 
 </resources>
