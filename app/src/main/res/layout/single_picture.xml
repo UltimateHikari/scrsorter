@@ -16,7 +16,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_baseline_person_24"
+        tools:src="@drawable/no_mlny"
         android:contentDescription="@string/todo">
 
     </ImageView>

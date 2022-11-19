@@ -54,5 +54,6 @@
     <string name="select_category">Select category:</string>
     <string name="choose">Choose</string>
     <string name="tag">Tag</string>
+    <string name="hello_addition">Hello category addition fragment</string>
 
 </resources>

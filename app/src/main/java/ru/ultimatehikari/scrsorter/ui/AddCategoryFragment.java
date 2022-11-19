@@ -9,12 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import ru.ultimatehikari.scrsorter.R;
-import ru.ultimatehikari.scrsorter.databinding.FragmentSecondBinding;
+import ru.ultimatehikari.scrsorter.databinding.FragmentAddCategoryBinding;
 
-public class SecondFragment extends Fragment {
+public class AddCategoryFragment extends Fragment {
 
-private FragmentSecondBinding binding;
+private FragmentAddCategoryBinding binding;
 
     @Override
     public View onCreateView(
@@ -22,7 +24,7 @@ private FragmentSecondBinding binding;
             Bundle savedInstanceState
     ) {
 
-      binding = FragmentSecondBinding.inflate(inflater, container, false);
+      binding = FragmentAddCategoryBinding.inflate(inflater, container, false);
       return binding.getRoot();
 
     }
@@ -30,11 +32,13 @@ private FragmentSecondBinding binding;
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
+        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_categoryListFragment);
+                Snackbar.make(view, "Imagine adding category in dummy project :P", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+//                NavHostFragment.findNavController(AddCategoryFragment.this)
+//                        .navigate(R.id.action_FirstFragment_to_categoryListFragment);
             }
         });
     }

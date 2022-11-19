@@ -46,11 +46,11 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
             Glide.with(holder.singlePictureBinding.picture.getContext())
                     .load(picture.getUrl())
                     .circleCrop()
-                    .placeholder(R.drawable.ic_baseline_person_24)
-                    .error(R.drawable.ic_baseline_person_24)
+                    .placeholder(R.drawable.no_mlny)
+                    .error(R.drawable.no_mlny)
                     .into(holder.singlePictureBinding.picture);
         }else{
-            holder.singlePictureBinding.picture.setImageResource(R.drawable.ic_baseline_person_24);
+            holder.singlePictureBinding.picture.setImageResource(R.drawable.no_mlny);
         }
     }
 

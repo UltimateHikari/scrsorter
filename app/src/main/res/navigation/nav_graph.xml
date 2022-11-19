@@ -7,21 +7,11 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="ru.ultimatehikari.scrsorter.ui.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
-
+        android:name="ru.ultimatehikari.scrsorter.ui.AddCategoryFragment"
+        android:label="@string/add_category"
+        tools:layout="@layout/fragment_add_category" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="ru.ultimatehikari.scrsorter.ui.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
-        <action
-            android:id="@+id/action_SecondFragment_to_categoryListFragment"
+            android:id="@+id/action_FirstFragment_to_categoryListFragment"
             app:destination="@id/categoryListFragment" />
     </fragment>
     <fragment
@@ -40,6 +30,10 @@
         android:id="@+id/pictureListFragment"
         android:name="ru.ultimatehikari.scrsorter.ui.pictures.PictureListFragment"
         android:label="Pictures"
-        tools:layout="@layout/fragment_pictures_list" />
+        tools:layout="@layout/fragment_pictures_list" >
+        <action
+            android:id="@+id/action_pictureListFragment_to_categoryListFragment"
+            app:destination="@id/categoryListFragment" />
+    </fragment>
 
 </navigation>

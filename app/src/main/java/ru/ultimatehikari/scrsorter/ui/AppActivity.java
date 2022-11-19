@@ -53,6 +53,8 @@ public class AppActivity extends AppCompatActivity {
                 }
             });
 
+
+
             createNotificationChannel();
             createReminderNotification();
         }
