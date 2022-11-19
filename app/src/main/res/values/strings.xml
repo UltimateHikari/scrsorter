@@ -55,5 +55,7 @@
     <string name="choose">Choose</string>
     <string name="tag">Tag</string>
     <string name="hello_addition">Hello category addition fragment</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

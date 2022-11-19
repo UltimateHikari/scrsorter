@@ -34,6 +34,18 @@
         <action
             android:id="@+id/action_pictureListFragment_to_categoryListFragment"
             app:destination="@id/categoryListFragment" />
+        <action
+            android:id="@+id/action_pictureListFragment_to_zoomImageViewFragment2"
+            app:destination="@id/zoomImageViewFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/zoomImageViewFragment2"
+        android:name="ru.ultimatehikari.scrsorter.ui.ZoomImageViewFragment"
+        android:label="fragment_zoom_image_view"
+        tools:layout="@layout/fragment_zoom_image_view" >
+        <action
+            android:id="@+id/action_zoomImageViewFragment2_to_pictureListFragment"
+            app:destination="@id/pictureListFragment" />
     </fragment>
 
 </navigation>

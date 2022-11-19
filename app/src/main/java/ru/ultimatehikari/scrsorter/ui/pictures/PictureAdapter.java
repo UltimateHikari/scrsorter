@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavHostController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +18,7 @@ import java.util.List;
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.databinding.SinglePictureBinding;
 import ru.ultimatehikari.scrsorter.model.Picture;
+import ru.ultimatehikari.scrsorter.ui.category.CategoryListFragment;
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PicturesViewHolder> {
 
@@ -39,9 +43,9 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
 
         holder.singlePictureBinding.name.setText(picture.getName());
         holder.singlePictureBinding.details.setText(picture.getName());
-        holder.singlePictureBinding.more.setOnClickListener(view -> {
-            Log.i("LOG_TAG", "Full Name: " + picture.getName());
-        });
+        holder.singlePictureBinding.more.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_pictureListFragment_to_zoomImageViewFragment2)
+        );
         if(!picture.getUrl().isEmpty()){
             Glide.with(holder.singlePictureBinding.picture.getContext())
                     .load(picture.getUrl())
