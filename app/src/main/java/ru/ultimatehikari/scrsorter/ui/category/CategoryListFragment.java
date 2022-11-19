@@ -1,6 +1,5 @@
-package ru.ultimatehikari.scrsorter.ui;
+package ru.ultimatehikari.scrsorter.ui.category;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Arrays;
-
 import ru.ultimatehikari.scrsorter.data.MockGenerator;
 import ru.ultimatehikari.scrsorter.databinding.FragmentCategoryListBinding;
+import ru.ultimatehikari.scrsorter.ui.AppActivity;
+import ru.ultimatehikari.scrsorter.ui.category.CategoryAdapter;
 
 public class CategoryListFragment extends Fragment {
 

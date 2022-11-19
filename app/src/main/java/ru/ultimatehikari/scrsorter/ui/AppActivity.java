@@ -21,6 +21,7 @@ import ru.ultimatehikari.scrsorter.databinding.ActivityAppBinding;
 
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.ui.lessons.ListActivity;
+import ru.ultimatehikari.scrsorter.ui.markup.MarkupTabbedActivity;
 
 public class AppActivity extends AppCompatActivity {
 
@@ -33,30 +34,28 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState != null){
-            return;
-        }
-
         binding = ActivityAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        if(savedInstanceState == null){
+            setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_app);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_app);
+            appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                startActivity(new Intent(view.getContext(), SettingsActivity.class));
-            }
-        });
+                    startActivity(new Intent(view.getContext(), SettingsActivity.class));
+                }
+            });
 
-        createNotificationChannel();
-        createReminderNotification();
+            createNotificationChannel();
+            createReminderNotification();
+        }
     }
 
     @Override
@@ -84,7 +83,7 @@ public class AppActivity extends AppCompatActivity {
 
     private void createReminderNotification(){
         // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(this, ListActivity.class);
+        Intent intent = new Intent(this, MarkupTabbedActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 

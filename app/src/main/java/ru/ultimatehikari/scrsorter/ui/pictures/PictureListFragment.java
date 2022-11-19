@@ -1,4 +1,4 @@
-package ru.ultimatehikari.scrsorter.ui;
+package ru.ultimatehikari.scrsorter.ui.pictures;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,12 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Arrays;
 import java.util.List;
 
 import ru.ultimatehikari.scrsorter.data.MockGenerator;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 import ru.ultimatehikari.scrsorter.databinding.FragmentPicturesListBinding;
+import ru.ultimatehikari.scrsorter.ui.pictures.PictureAdapter;
 import ru.ultimatehikari.scrsorter.viewmodel.PictureListViewModel;
 
 public class PictureListFragment extends Fragment {

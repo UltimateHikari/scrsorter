@@ -33,7 +33,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.CategoryListFragment"
+        tools:context=".ui.category.CategoryListFragment"
         android:id="@+id/recycler">
 
     </androidx.recyclerview.widget.RecyclerView>

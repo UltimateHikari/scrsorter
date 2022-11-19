@@ -1,4 +1,4 @@
-package ru.ultimatehikari.scrsorter.ui;
+package ru.ultimatehikari.scrsorter.ui.pictures;
 
 import android.util.Log;
 import android.view.LayoutInflater;

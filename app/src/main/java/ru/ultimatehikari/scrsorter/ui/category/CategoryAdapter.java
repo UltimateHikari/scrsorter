@@ -1,17 +1,11 @@
-package ru.ultimatehikari.scrsorter.ui;
+package ru.ultimatehikari.scrsorter.ui.category;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.Collections;
 import java.util.List;

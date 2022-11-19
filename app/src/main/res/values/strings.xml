@@ -49,5 +49,10 @@
     <string name="add_category">Add category</string>
     <string name="test_notification_devmode">Test notification (devmode)</string>
     <string name="channel_name">notif_channel</string>
+    <string name="apply">Apply</string>
+    <string name="additional_tags">Additional tags:</string>
+    <string name="select_category">Select category:</string>
+    <string name="choose">Choose</string>
+    <string name="tag">Tag</string>
 
 </resources>
