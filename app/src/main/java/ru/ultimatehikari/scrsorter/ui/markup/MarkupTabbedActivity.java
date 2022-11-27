@@ -34,14 +34,15 @@ public class MarkupTabbedActivity extends AppCompatActivity {
         }
 
         if(savedInstanceState == null) {
-            adapter = new MarkupCollectionAdapter(this);
-            viewPager = findViewById(R.id.pager);
-            viewPager.setAdapter(adapter);
-
-            dotsIndicator = findViewById(R.id.dots_indicator);
-            dotsIndicator.attachTo(viewPager);
 
         }
+
+        adapter = new MarkupCollectionAdapter(this);
+        viewPager = findViewById(R.id.pager);
+        viewPager.setAdapter(adapter);
+
+        dotsIndicator = findViewById(R.id.dots_indicator);
+        dotsIndicator.attachTo(viewPager);
     }
 
 }
