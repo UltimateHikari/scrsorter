@@ -13,17 +13,22 @@ public class DataRepository {
     private final AppDatabase database;
 
     private final MediatorLiveData<List<PictureEntity>> observablePictures;
+    private final MediatorLiveData<Boolean> databaseLatch;
 
     private DataRepository(AppDatabase database) {
         this.database = database;
         observablePictures = new MediatorLiveData<>();
+        databaseLatch = new MediatorLiveData<>();
 
-        observablePictures.addSource(database.pictureDao().loadAllPictures(),
-                pictureEntities -> {
-                    if (database.getDatabaseCreated().getValue() != null) {
-                        observablePictures.postValue(pictureEntities);
+        databaseLatch.addSource(database.getDatabaseCreated(),
+                isCreated -> {
+                    if(isCreated){
+                        observablePictures.postValue(database.pictureDao().loadAllPictures().getValue());
                     }
                 });
+
+        observablePictures.addSource(database.pictureDao().loadAllPictures(),
+                observablePictures::postValue);
     }
 
     public static DataRepository getInstance(AppDatabase database) {

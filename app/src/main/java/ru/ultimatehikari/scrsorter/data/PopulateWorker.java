@@ -27,9 +27,10 @@ public class PopulateWorker extends Worker {
             database.runInTransaction(() -> {
                 database.pictureDao().insertAll(MockGenerator.generatePictures());
             });
-            database.setDatabaseCreated();
+
             Log.i("DBINIT", "generated");
         }
+        database.setDatabaseCreated();
         return Result.success();
     }
 }
