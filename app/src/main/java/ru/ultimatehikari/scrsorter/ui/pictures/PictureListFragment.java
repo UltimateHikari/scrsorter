@@ -51,8 +51,6 @@ public class PictureListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //TODO: remove
-        adapter.setPictures(MockGenerator.generatePictures());
     }
 
     private void subscribeToViewModel(LiveData<List<PictureEntity>> liveData) {

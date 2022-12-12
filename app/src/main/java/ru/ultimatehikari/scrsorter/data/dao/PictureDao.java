@@ -21,4 +21,7 @@ public interface PictureDao {
 
     @Query("select * from pictures where id = :productId")
     LiveData<PictureEntity> loadPicture(int productId);
+
+    @Query("select count(*) from pictures")
+    int count();
 }

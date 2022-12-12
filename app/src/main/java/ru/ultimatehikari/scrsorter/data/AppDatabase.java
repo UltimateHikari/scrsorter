@@ -10,6 +10,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import com.github.javafaker.Faker;
 
@@ -25,6 +30,8 @@ import ru.ultimatehikari.scrsorter.AppExecutorsPool;
 import ru.ultimatehikari.scrsorter.data.dao.PictureDao;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 
+
+
 @Database(entities = {PictureEntity.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -35,41 +42,30 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 
-    public static AppDatabase getInstance(final Context context, final AppExecutorsPool pool) {
+    public static AppDatabase getInstance(final Context context) {
         if (instance == null) {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
-                    instance = populateDatabase(context.getApplicationContext(), pool);
+                    instance = Room
+                            .databaseBuilder(
+                                    context.getApplicationContext(),
+                                    AppDatabase.class,
+                                    DATABASE_NAME)
+                            .build();
+                    instance.populateInitialData(context.getApplicationContext()/*, pool*/);
                 }
             }
         }
         return instance;
     }
 
-    private static AppDatabase populateDatabase(Context applicationContext, AppExecutorsPool pool) {
-        AppDatabase db = Room.databaseBuilder(applicationContext, AppDatabase.class,DATABASE_NAME)
-                .addCallback(new Callback() {
-                    @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
-                        pool.getPoolDiskIO().execute(() -> {
-                            //TODO: move to Generator/Loader class
-                            Log.i("DB", "generating..");
-                            AppDatabase database = AppDatabase.getInstance(applicationContext, pool);
+    private void populateInitialData(Context applicationContext) {
+        WorkManager.getInstance(applicationContext)
+                .enqueue(OneTimeWorkRequest.from(PopulateWorker.class));
 
-                            database.runInTransaction(() -> {database.pictureDao().insertAll(MockGenerator.generatePictures());});
-                            database.setDatabaseCreated();
-                            Log.i("DB", "generated");
-                        });
-                    }
-                })
-                .build();
-        // to force onCreate db hook
-        db.query("select 1", null);
-        return db;
     }
 
-    private void setDatabaseCreated() {
+    public void setDatabaseCreated() {
         isDatabaseCreated.postValue(true);
     }
 
