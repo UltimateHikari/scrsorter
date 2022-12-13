@@ -1,11 +1,18 @@
 package ru.ultimatehikari.scrsorter;
 
+import android.content.Context;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.List;
 
 import ru.ultimatehikari.scrsorter.data.AppDatabase;
+import ru.ultimatehikari.scrsorter.data.ImageScanWorker;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 
 public class DataRepository {
@@ -44,5 +51,12 @@ public class DataRepository {
 
     public LiveData<List<PictureEntity>> getPictures() {
         return observablePictures;
+    }
+
+    public void startImageScan(@NonNull Context context){
+        // TODO: check version
+
+        WorkManager.getInstance(context.getApplicationContext())
+                .enqueue(OneTimeWorkRequest.from(ImageScanWorker.class));
     }
 }

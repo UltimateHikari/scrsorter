@@ -17,6 +17,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import ru.ultimatehikari.scrsorter.App;
+import ru.ultimatehikari.scrsorter.DataRepository;
 import ru.ultimatehikari.scrsorter.databinding.ActivityAppBinding;
 
 import ru.ultimatehikari.scrsorter.R;
@@ -37,7 +39,10 @@ public class AppActivity extends AppCompatActivity {
         binding = ActivityAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ((App)getApplication()).getRepository().startImageScan(getApplicationContext());
+
         if(savedInstanceState == null){
+
             setSupportActionBar(binding.toolbar);
 
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_app);
