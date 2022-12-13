@@ -20,8 +20,8 @@ import androidx.navigation.ui.NavigationUI;
 import ru.ultimatehikari.scrsorter.databinding.ActivityAppBinding;
 
 import ru.ultimatehikari.scrsorter.R;
-import ru.ultimatehikari.scrsorter.ui.lessons.ListActivity;
 import ru.ultimatehikari.scrsorter.ui.markup.MarkupTabbedActivity;
+import ru.ultimatehikari.scrsorter.ui.settings.SettingsActivity;
 
 public class AppActivity extends AppCompatActivity {
 
