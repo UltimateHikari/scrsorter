@@ -1,11 +1,13 @@
 package ru.ultimatehikari.scrsorter.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.util.List;
 
 
 public interface Picture {
-    Long getId();
+    Long getPictureId();
     String getName();
     String getUrl();
+    void setPictureId(Long pictureId);
+    void setName(String name);
+    void setUrl(String url);
 }

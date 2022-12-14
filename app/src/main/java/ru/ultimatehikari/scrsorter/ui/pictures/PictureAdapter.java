@@ -42,7 +42,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
         var picture = pictures.get(position);
 
         holder.singlePictureBinding.name.setText(picture.getName());
-        holder.singlePictureBinding.details.setText(picture.getName());
+        holder.singlePictureBinding.details.setText(picture.getUrl());
         holder.singlePictureBinding.more.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_pictureListFragment_to_zoomImageViewFragment2)
         );

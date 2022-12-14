@@ -11,14 +11,14 @@ import java.util.stream.IntStream;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 
 public class MockGenerator {
-    private static final int MAGIC_COUNT = 100;
+    private static final int MAGIC_COUNT = 10;
 
     public static List<PictureEntity> generatePictures(){
         Faker faker = new Faker();
         return IntStream.range(0,MAGIC_COUNT)
                 .mapToObj(i -> {
                     PictureEntity picture = new PictureEntity();
-                    picture.setId((long) i);
+                    picture.setPictureId((long) i);
                     picture.setName(faker.pokemon().name());
                     picture.setUrl("...");
                     return picture;

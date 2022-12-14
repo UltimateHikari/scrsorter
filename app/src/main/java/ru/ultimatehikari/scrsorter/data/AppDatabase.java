@@ -32,7 +32,7 @@ import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 
 
 
-@Database(entities = {PictureEntity.class}, version = 1)
+@Database(entities = {PictureEntity.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "pictures_database";

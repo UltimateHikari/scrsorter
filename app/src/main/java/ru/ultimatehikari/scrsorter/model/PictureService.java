@@ -26,7 +26,7 @@ public class PictureService {
         pictures = IntStream.range(0,MAGIC_COUNT)
                 .mapToObj(i -> {
                     PictureEntity picture = new PictureEntity();
-                    picture.setId((long) i);
+                    picture.setPictureId((long) i);
                     picture.setName(faker.name().name());
                     picture.setUrl("...");
                     return picture;
@@ -40,7 +40,7 @@ public class PictureService {
 
     public void deletePicture(Picture picture){
         OptionalInt result = IntStream.range(0, pictures.size())
-                .filter(x -> picture.getId().equals(pictures.get(x).getId()))
+                .filter(x -> picture.getPictureId().equals(pictures.get(x).getPictureId()))
                 .findFirst();
 
         if (result.isPresent())
@@ -52,7 +52,7 @@ public class PictureService {
 
     public void moveUp(Picture picture){
         OptionalInt result = IntStream.range(0, pictures.size())
-                .filter(x -> picture.getId().equals(pictures.get(x).getId()))
+                .filter(x -> picture.getPictureId().equals(pictures.get(x).getPictureId()))
                 .findFirst();
         if (result.isPresent() && result.getAsInt() > 1)
         {
