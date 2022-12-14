@@ -25,14 +25,6 @@
         android:theme="@style/Theme.Scrsorter"
         tools:targetApi="31" >
         <activity
-            android:name=".SettingsActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_settings2" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.markup.MarkupTabbedActivity"
             android:exported="false" >
             <meta-data

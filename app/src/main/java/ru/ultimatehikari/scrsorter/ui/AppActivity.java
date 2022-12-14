@@ -1,21 +1,34 @@
 package ru.ultimatehikari.scrsorter.ui;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import ru.ultimatehikari.scrsorter.App;
 import ru.ultimatehikari.scrsorter.DataRepository;
@@ -39,8 +52,6 @@ public class AppActivity extends AppCompatActivity {
         binding = ActivityAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ((App)getApplication()).getRepository().startImageScan(getApplicationContext());
-
         if(savedInstanceState == null){
 
             setSupportActionBar(binding.toolbar);
@@ -62,7 +73,11 @@ public class AppActivity extends AppCompatActivity {
 
             createNotificationChannel();
             createReminderNotification();
+
         }
+
+        checkPermissions();
+        ((App)getApplication()).getRepository().startImageScan(getApplicationContext());
     }
 
     @Override
@@ -104,6 +119,20 @@ public class AppActivity extends AppCompatActivity {
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
+
+    }
+
+    private void checkPermissions(){
+        ActivityResultLauncher<String> requestPermissionLauncher =
+                registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {});
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+           requestPermissionLauncher.launch(
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            );
+        }
 
     }
 

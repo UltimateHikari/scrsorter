@@ -35,13 +35,13 @@
     </string-array>
 
     <string-array name="scan_entries">
-        <item>DCIM</item>
-        <item>Pictures/Screenshots</item>
+        <item>/storage/emulated/DCIM</item>
+        <item>/sdcard/Pictures/Screenshots</item>
 
     </string-array>
 
     <string-array name="scan_values">
-        <item>DCIM</item>
-        <item>Pictures/Screenshots</item>
+        <item>/storage/emulated/DCIM</item>
+        <item>/sdcard/Pictures/Screenshots</item>
     </string-array>
 </resources>

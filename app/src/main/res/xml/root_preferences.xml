@@ -40,7 +40,7 @@
             app:title="Search screenshots in"
             app:entries="@array/scan_entries"
             app:entryValues="@array/scan_values"
-            app:defaultValue="Pictures/Screenshots"
+            app:defaultValue="/sdcard/Pictures/Screenshots"
             app:useSimpleSummaryProvider="true"/>
 
         <!-- TODO: rework to File Picker custom dialog custom preference (find a lib or sth)-->

@@ -75,5 +75,7 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="backup_button_key">backup_button_key</string>
     <string name="delete_button_key">delete_button_key</string>
+    <string name="mediastore_version_key">mediastore_version_key</string>
+    <string name="scan_path">scan_path</string>
 
 </resources>

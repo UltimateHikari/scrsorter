@@ -1,42 +1,57 @@
 package ru.ultimatehikari.scrsorter.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import ru.ultimatehikari.scrsorter.App;
+import ru.ultimatehikari.scrsorter.R;
+
 public class ImageScanWorker extends Worker {
+    private static final String DEFAULT_PATH = "";
+    private static final int DEFAULT_VERSION = 0;
+    private final SharedPreferences sharedPref =
+            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
     public ImageScanWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
     }
 
-    @Override
-    @NonNull
-    public Result doWork() {
-//        String[] projection = new String[] {
+    private Cursor openCursor(){
+        //        String[] projection = new String[] {
 //                MediaStore.MediaColumns.DATA
 //        };
         Log.i("IMG", "starting querying..");
 
+        //TODO path used vaguely
         String selection = MediaStore.Images.Media.DATA + " like ? ";
         String[] selectionArgs = new String[] {
                 "%Screenshots%"
         };
         String sortOrder = null;
 
-        Cursor cursor = getApplicationContext().getContentResolver().query(
+        return getApplicationContext().getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null,
                 selection,
                 selectionArgs,
                 null
         );
+    }
+
+    private void scanWithCursor(Cursor cursor){
+
 
         Log.i("IMG", String.valueOf(cursor.getCount()));
 
@@ -49,6 +64,48 @@ public class ImageScanWorker extends Worker {
         }
 
         cursor.close();
+    }
+
+    private boolean ifImageAmountChanged(Cursor cursor){
+        var key = getApplicationContext().getString(R.string.mediastore_version_key);
+        var settingsVersion = sharedPref
+                .getInt(key, DEFAULT_VERSION);
+        var storeVersion = cursor.getCount();
+        Log.i("IMG", "versions: " + settingsVersion + storeVersion);
+        if(settingsVersion != storeVersion){
+            sharedPref.edit().putInt(key, storeVersion).apply();
+            return true;
+        }
+        return false;
+    }
+    @Override
+    @NonNull
+    public Result doWork() {
+
+        var path = sharedPref.getString(
+                getApplicationContext().getString(R.string.scan_path),
+                DEFAULT_PATH);
+
+        Log.i("IMG", "Rescanning path: " + path);
+
+        MediaScannerConnection.scanFile(getApplicationContext(),
+                new String[]{path}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+                        Log.i("IMG", "Scan completed" + path);
+
+                        var cursor = openCursor();
+
+                        if(ifImageAmountChanged(cursor)){
+                            scanWithCursor(cursor);
+                        }
+
+                        cursor.close();
+                    }
+                });
+
         return Result.success();
     }
+
+
 }
