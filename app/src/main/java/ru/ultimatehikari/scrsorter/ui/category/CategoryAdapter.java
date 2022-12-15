@@ -1,14 +1,17 @@
 package ru.ultimatehikari.scrsorter.ui.category;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.databinding.SingleCategoryBinding;
@@ -20,6 +23,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     void setCategories(List<? extends Category> newCategories){
         categories = newCategories;
+        Log.i("setCategories", categories.stream().map(i -> {return i.getName();}).collect(Collectors.joining()));
         notifyDataSetChanged();
     }
 

@@ -23,23 +23,26 @@ public class PopulateWorker extends Worker {
     public Result doWork() {
 
         AppDatabase database = AppDatabase.getInstance(getApplicationContext());
-        var count = database.pictureDao().count();
-        Log.i("DBINIT", "Populating db..." + count);
+        var countPic = database.pictureDao().count();
 
-//        if(count == 0) {
+//        if(countPic == 0) {
 //            database.runInTransaction(() -> {
 //                database.pictureDao().insertAll(MockGenerator.generatePictures());
 //            });
 //        }
 
-        database.runInTransaction(() -> {
-            database.categoryDao().insertAll(
-                    MockGenerator.generateCategoriesFromXML(
-                            getApplicationContext().getResources()
-                            .getStringArray(R.array.default_categories)
-                    )
-            );
-        });
+        var countCat = database.categoryDao().count();
+
+        if(countCat == 0){
+            database.runInTransaction(() -> {
+                database.categoryDao().insertAll(
+                        MockGenerator.generateCategoriesFromXML(
+                                getApplicationContext().getResources()
+                                        .getStringArray(R.array.default_categories)
+                        )
+                );
+            });
+        }
 
         database.setDatabaseCreated();
         return Result.success();

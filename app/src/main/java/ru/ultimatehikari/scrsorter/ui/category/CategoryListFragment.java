@@ -34,6 +34,7 @@ public class CategoryListFragment extends Fragment {
     private static final int MAGIC_INT = 101;
     private FragmentCategoryListBinding binding;
     private CategoryAdapter adapter;
+    private CategoryListViewModel viewModel;
 
     public CategoryListFragment() {
         // Required empty public constructor
@@ -41,10 +42,7 @@ public class CategoryListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CategoryListViewModel viewModel =
-                new ViewModelProvider(requireActivity()).get(CategoryListViewModel.class);
-
-        subscribeToViewModel(viewModel.getCategories());
+        viewModel = new ViewModelProvider(requireActivity()).get(CategoryListViewModel.class);
     }
 
     @Override
@@ -52,10 +50,10 @@ public class CategoryListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentCategoryListBinding.inflate(inflater);
-        adapter = new CategoryAdapter();
         var layoutManager = new LinearLayoutManager(getContext());
         binding.recycler.setLayoutManager(layoutManager);
-        binding.recycler.setAdapter(adapter);
+        setRecyclerView();
+
 
         binding.testNotif.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +69,18 @@ public class CategoryListFragment extends Fragment {
                         .navigate(R.id.action_categoryListFragment_to_FirstFragment);
             }
         });
+
+        subscribeToViewModel(viewModel.getCategories());
+
         return binding.getRoot();
+    }
+
+    private void setRecyclerView() {
+        if(adapter == null){
+            adapter = new CategoryAdapter();
+
+        }
+        binding.recycler.setAdapter(adapter);
     }
 
     @Override
@@ -81,7 +90,7 @@ public class CategoryListFragment extends Fragment {
     }
 
     private void subscribeToViewModel(LiveData<List<CategoryEntity>> liveData) {
-        liveData.observe(this, categories -> {
+        liveData.observe(getViewLifecycleOwner(), categories -> {
             Log.i("ADDING", categories.toString());
             adapter.setCategories(categories);
         });
