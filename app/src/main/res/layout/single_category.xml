@@ -15,8 +15,11 @@
         android:layout_marginStart="15dp"
         android:text="@string/placeholder_category"
         android:textAlignment="center"
-        android:textColor="@color/design_default_color_on_primary"
-        android:background="@color/design_default_color_primary"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:background="@drawable/rounded_category_background"
         />
 
 </LinearLayout>

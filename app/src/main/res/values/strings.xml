@@ -77,5 +77,6 @@
     <string name="delete_button_key">delete_button_key</string>
     <string name="mediastore_version_key">mediastore_version_key</string>
     <string name="scan_path">scan_path</string>
+    <string name="send_markup_notification">Send markup notification</string>
 
 </resources>

@@ -27,18 +27,21 @@ import java.util.stream.IntStream;
 
 import lombok.Getter;
 import ru.ultimatehikari.scrsorter.AppExecutorsPool;
+import ru.ultimatehikari.scrsorter.data.dao.CategoryDao;
 import ru.ultimatehikari.scrsorter.data.dao.PictureDao;
+import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 
 
 
-@Database(entities = {PictureEntity.class}, version = 2)
+@Database(entities = {PictureEntity.class, CategoryEntity.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "pictures_database";
     private static AppDatabase instance;
 
     public abstract PictureDao pictureDao();
+    public abstract CategoryDao categoryDao();
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 

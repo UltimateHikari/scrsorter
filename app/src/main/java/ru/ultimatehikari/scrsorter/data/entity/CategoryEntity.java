@@ -1,6 +1,7 @@
 package ru.ultimatehikari.scrsorter.data.entity;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import ru.ultimatehikari.scrsorter.model.Picture;
 
 @Getter
 @Setter
-@Entity(tableName = "categories")
+@Entity(tableName = "categories", indices = {@Index(value = {"categoryId", "name"}, unique = true)})
 public class CategoryEntity implements Category {
     @PrimaryKey
     public Long categoryId;

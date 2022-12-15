@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.util.Arrays;
+
+import ru.ultimatehikari.scrsorter.R;
+
 public class PopulateWorker extends Worker {
     public PopulateWorker(
             @NonNull Context context,
@@ -21,16 +25,25 @@ public class PopulateWorker extends Worker {
         AppDatabase database = AppDatabase.getInstance(getApplicationContext());
         var count = database.pictureDao().count();
         Log.i("DBINIT", "Populating db..." + count);
-        if(count == 0) {
-            Log.i("DBINIT", "generating..");
 
-            database.runInTransaction(() -> {
-                database.pictureDao().insertAll(MockGenerator.generatePictures());
-            });
+//        if(count == 0) {
+//            database.runInTransaction(() -> {
+//                database.pictureDao().insertAll(MockGenerator.generatePictures());
+//            });
+//        }
 
-            Log.i("DBINIT", "generated");
-        }
+        database.runInTransaction(() -> {
+            database.categoryDao().insertAll(
+                    MockGenerator.generateCategoriesFromXML(
+                            getApplicationContext().getResources()
+                            .getStringArray(R.array.default_categories)
+                    )
+            );
+        });
+
         database.setDatabaseCreated();
         return Result.success();
     }
+
+
 }

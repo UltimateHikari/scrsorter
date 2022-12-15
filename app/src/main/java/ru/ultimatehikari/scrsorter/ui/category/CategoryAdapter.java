@@ -12,13 +12,13 @@ import java.util.List;
 
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.databinding.SingleCategoryBinding;
+import ru.ultimatehikari.scrsorter.model.Category;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    //TODO: move to CategoryEntity
-    List<String> categories = Collections.emptyList();
+    List<? extends Category> categories = Collections.emptyList();
 
-    void setCategories(List<String> newCategories){
+    void setCategories(List<? extends Category> newCategories){
         categories = newCategories;
         notifyDataSetChanged();
     }
@@ -35,7 +35,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         var category = categories.get(position);
 
-        holder.singleCategoryBinding.text.setText(category);
+        holder.singleCategoryBinding.text.setText(category.getName());
 
         holder.singleCategoryBinding.text.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.action_categoryListFragment_to_pictureListFragment)

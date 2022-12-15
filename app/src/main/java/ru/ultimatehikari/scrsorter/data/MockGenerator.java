@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 
 public class MockGenerator {
@@ -28,5 +29,13 @@ public class MockGenerator {
 
     public static List<String> generateCategories(){
         return Arrays.asList("Category-1", "Category-2", "Category-3");
+    }
+
+    public static List<CategoryEntity> generateCategoriesFromXML(String [] defaults){
+        return Arrays.stream(defaults).map(s -> {
+            var category = new CategoryEntity();
+            category.setName(s);
+            return category;
+        }).collect(Collectors.toList());
     }
 }
