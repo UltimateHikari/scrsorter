@@ -119,6 +119,8 @@ public class ImageScanWorker extends Worker {
                     }
                 });
 
+        Log.i("IMG", "Worker finished");
+
         return Result.success();
     }
 

@@ -15,7 +15,6 @@ import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 @Dao
 public interface PictureDao {
 
-    @Transaction
     @Query("SELECT * FROM pictures")
     LiveData<List<PictureEntity>> loadAllPictures();
 

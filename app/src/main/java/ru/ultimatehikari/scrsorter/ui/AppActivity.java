@@ -4,13 +4,9 @@ import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,8 +14,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 
 import androidx.core.app.NotificationCompat;
@@ -28,10 +22,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.preference.PreferenceManager;
 
 import ru.ultimatehikari.scrsorter.App;
-import ru.ultimatehikari.scrsorter.DataRepository;
 import ru.ultimatehikari.scrsorter.databinding.ActivityAppBinding;
 
 import ru.ultimatehikari.scrsorter.R;
@@ -76,8 +68,7 @@ public class AppActivity extends AppCompatActivity {
 
         }
 
-        checkPermissions();
-        ((App)getApplication()).getRepository().startImageScan(getApplicationContext());
+        checkPermissionsForScan();
     }
 
     @Override
@@ -122,9 +113,11 @@ public class AppActivity extends AppCompatActivity {
 
     }
 
-    private void checkPermissions(){
+    private void checkPermissionsForScan(){
         ActivityResultLauncher<String> requestPermissionLauncher =
-                registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {});
+                registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                    startImageScan();
+                });
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE) !=
@@ -132,8 +125,14 @@ public class AppActivity extends AppCompatActivity {
            requestPermissionLauncher.launch(
                     Manifest.permission.READ_EXTERNAL_STORAGE
             );
+        }else{
+            startImageScan();
         }
 
+    }
+
+    private void startImageScan() {
+        ((App)getApplication()).getRepository().startImageScan(getApplicationContext());
     }
 
     public NotificationCompat.Builder getBuilder() {

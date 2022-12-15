@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 import ru.ultimatehikari.scrsorter.data.MockGenerator;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
 import ru.ultimatehikari.scrsorter.databinding.FragmentPicturesListBinding;
+import ru.ultimatehikari.scrsorter.ui.category.CategoryAdapter;
 import ru.ultimatehikari.scrsorter.ui.pictures.PictureAdapter;
 import ru.ultimatehikari.scrsorter.viewmodel.PictureListViewModel;
 
@@ -24,15 +26,12 @@ public class PictureListFragment extends Fragment {
 
     private FragmentPicturesListBinding binding;
     private PictureAdapter adapter;
+    private PictureListViewModel viewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PictureListViewModel viewModel =
-                new ViewModelProvider(requireActivity()).get(PictureListViewModel.class);
-
-        subscribeToViewModel(viewModel.getPictures());
-
+         viewModel = new ViewModelProvider(requireActivity()).get(PictureListViewModel.class);
     }
 
     @Override
@@ -40,12 +39,22 @@ public class PictureListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentPicturesListBinding.inflate(inflater);
-        adapter = new PictureAdapter();
 
         var layoutManager = new LinearLayoutManager(getContext());
         binding.recycler.setLayoutManager(layoutManager);
-        binding.recycler.setAdapter(adapter);
+
+        setRecyclerView();
+
+        subscribeToViewModel(viewModel.getPictures());
+
         return binding.getRoot();
+    }
+
+    private void setRecyclerView() {
+        if(adapter == null){
+            adapter = new PictureAdapter();
+        }
+        binding.recycler.setAdapter(adapter);
     }
 
     @Override
@@ -54,7 +63,7 @@ public class PictureListFragment extends Fragment {
     }
 
     private void subscribeToViewModel(LiveData<List<PictureEntity>> liveData) {
-        liveData.observe(this, pictures -> {
+        liveData.observe(getViewLifecycleOwner(), pictures -> {
             adapter.setPictures(pictures);
         });
     }

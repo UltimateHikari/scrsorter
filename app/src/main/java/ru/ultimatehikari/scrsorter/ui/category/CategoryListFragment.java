@@ -54,7 +54,6 @@ public class CategoryListFragment extends Fragment {
         binding.recycler.setLayoutManager(layoutManager);
         setRecyclerView();
 
-
         binding.testNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +77,6 @@ public class CategoryListFragment extends Fragment {
     private void setRecyclerView() {
         if(adapter == null){
             adapter = new CategoryAdapter();
-
         }
         binding.recycler.setAdapter(adapter);
     }
@@ -91,7 +89,6 @@ public class CategoryListFragment extends Fragment {
 
     private void subscribeToViewModel(LiveData<List<CategoryEntity>> liveData) {
         liveData.observe(getViewLifecycleOwner(), categories -> {
-            Log.i("ADDING", categories.toString());
             adapter.setCategories(categories);
         });
     }
