@@ -17,10 +17,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ru.ultimatehikari.scrsorter.App;
 import ru.ultimatehikari.scrsorter.R;
+import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
+import ru.ultimatehikari.scrsorter.data.entity.PictureEntityWithCategories;
 
 public class ImageScanWorker extends Worker {
     private static final String DEFAULT_PATH = "";
@@ -56,7 +59,7 @@ public class ImageScanWorker extends Worker {
         );
     }
 
-    private List<PictureEntity> scanWithCursor(Cursor cursor){
+    private List<PictureEntityWithCategories> scanWithCursor(Cursor cursor){
 
 
         Log.i("IMG", String.valueOf(cursor.getCount()));
@@ -65,13 +68,18 @@ public class ImageScanWorker extends Worker {
         var date = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_ADDED);
         var name = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
 
-        List<PictureEntity> pictures = new LinkedList<>();
+        List<PictureEntityWithCategories> pictures = new LinkedList<>();
 
         while (cursor.moveToNext()) {
             Log.i("IMG", cursor.getString(name));
-            var pic = new PictureEntity();
+            var pic = new PictureEntityWithCategories();
+            pic.picture = new PictureEntity();
             pic.setName(cursor.getString(name));
             pic.setUrl(cursor.getString(data));
+
+            pic.setCategory(new CategoryEntity());
+            pic.getCategory().setCategoryId(0L);
+
             pictures.add(pic);
         }
 
@@ -111,8 +119,15 @@ public class ImageScanWorker extends Worker {
 
                         if(ifImageAmountChanged(cursor)){
                             var list = scanWithCursor(cursor);
+                            List<PictureEntity> plain = list.stream()
+                                            .map(p -> {return p.picture;})
+                                            .collect(Collectors.toList());
+
                             AppDatabase.getInstance(getApplicationContext())
-                                    .pictureDao().insertAllNew(list);
+                                    .pictureDao().insertAllNew(plain);
+
+                            AppDatabase.getInstance(getApplicationContext())
+                                    .pictureDao().updateWithCategories(list);
                         }
 
                         cursor.close();

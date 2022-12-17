@@ -26,10 +26,10 @@ public class PictureEntityWithCategories implements PictureWithCategories {
     public CategoryEntity category;
     @Relation(
             parentColumn = "pictureId",
-            entityColumn = "categoryId",
+            entityColumn = "minorCategoryId",
             associateBy = @Junction(MinorCategoryPictureCrossRef.class)
     )
-    public List<CategoryEntity> minorCategories;
+    public List<CategoryEntity> minorCategories = Collections.emptyList();
 
     @Override
     public Long getPictureId() {

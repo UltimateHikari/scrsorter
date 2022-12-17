@@ -2,8 +2,8 @@ package ru.ultimatehikari.scrsorter.data.entity;
 
 import androidx.room.Entity;
 
-@Entity(primaryKeys = {"categoryId", "pictureId"})
+@Entity(primaryKeys = {"minorCategoryId", "pictureId"})
 public class MinorCategoryPictureCrossRef {
-        public long categoryId;
+        public long minorCategoryId;
         public long pictureId;
 }

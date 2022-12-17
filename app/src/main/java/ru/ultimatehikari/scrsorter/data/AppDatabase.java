@@ -30,11 +30,18 @@ import ru.ultimatehikari.scrsorter.AppExecutorsPool;
 import ru.ultimatehikari.scrsorter.data.dao.CategoryDao;
 import ru.ultimatehikari.scrsorter.data.dao.PictureDao;
 import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
+import ru.ultimatehikari.scrsorter.data.entity.CategoryPictureCrossRef;
+import ru.ultimatehikari.scrsorter.data.entity.MinorCategoryPictureCrossRef;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
+import ru.ultimatehikari.scrsorter.data.entity.PictureEntityWithCategories;
 
 
-
-@Database(entities = {PictureEntity.class, CategoryEntity.class}, version = 4)
+@Database(entities = {
+        PictureEntity.class,
+        CategoryEntity.class,
+        CategoryPictureCrossRef.class,
+        MinorCategoryPictureCrossRef.class
+        }, version = 6)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "pictures_database";
