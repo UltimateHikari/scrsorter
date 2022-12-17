@@ -2,9 +2,13 @@ package ru.ultimatehikari.scrsorter.ui.pictures;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.helper.widget.Flow;
 import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -13,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.databinding.SinglePictureBinding;
+import ru.ultimatehikari.scrsorter.databinding.SingleTagBinding;
 import ru.ultimatehikari.scrsorter.model.Picture;
 import ru.ultimatehikari.scrsorter.ui.category.CategoryListFragment;
 
@@ -34,28 +41,16 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
     public PicturesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         var inflater = LayoutInflater.from(parent.getContext());
         var binding = SinglePictureBinding.inflate(inflater, parent, false);
-        return new PicturesViewHolder(binding);
+
+        return new PicturesViewHolder(binding, inflater);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PicturesViewHolder holder, int position) {
         var picture = pictures.get(position);
-
-        holder.singlePictureBinding.name.setText(picture.getName());
-        holder.singlePictureBinding.details.setText(picture.getUrl());
-        holder.singlePictureBinding.more.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_pictureListFragment_to_zoomImageViewFragment2)
-        );
-        if(!picture.getUrl().isEmpty()){
-            Glide.with(holder.singlePictureBinding.picture.getContext())
-                    .load(picture.getUrl())
-                    .circleCrop()
-                    .placeholder(R.drawable.no_mlny)
-                    .error(R.drawable.no_mlny)
-                    .into(holder.singlePictureBinding.picture);
-        }else{
-            holder.singlePictureBinding.picture.setImageResource(R.drawable.no_mlny);
-        }
+        holder.bindData(picture);
+        holder.bindPicture(picture);
+        holder.bindTags(picture, position);
     }
 
     @Override
@@ -65,10 +60,63 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
 
     public static class PicturesViewHolder extends RecyclerView.ViewHolder {
         private final SinglePictureBinding singlePictureBinding;
+        private final LayoutInflater inflater;
 
-        public PicturesViewHolder(SinglePictureBinding bind) {
+        public PicturesViewHolder(SinglePictureBinding bind, LayoutInflater inflater) {
             super(bind.getRoot());
             singlePictureBinding = bind;
+            this.inflater = inflater;
+        }
+
+
+        public void bindData(Picture picture) {
+            singlePictureBinding.name.setText(picture.getName());
+            singlePictureBinding.details.setText(picture.getUrl());
+            singlePictureBinding.more.setOnClickListener(
+                    Navigation.createNavigateOnClickListener(R.id.action_pictureListFragment_to_zoomImageViewFragment2)
+            );
+        }
+
+        public void bindPicture(Picture picture) {
+            if(!picture.getUrl().isEmpty()){
+                Glide.with(singlePictureBinding.picture.getContext())
+                        .load(picture.getUrl())
+                        .circleCrop()
+                        .placeholder(R.drawable.no_mlny)
+                        .error(R.drawable.no_mlny)
+                        .into(singlePictureBinding.picture);
+            }else{
+                singlePictureBinding.picture.setImageResource(R.drawable.no_mlny);
+            }
+        }
+
+        public void bindTags(Picture picture, int position) {
+            Flow flow = singlePictureBinding.getRoot().findViewById(R.id.flow);
+            var tags = new LinkedList<TextView>();
+
+            removePreviousTags();
+            for(int i = 0; i < position; ++i){
+                var tag = SingleTagBinding
+                        .inflate(inflater, null,false)
+                        .getRoot();
+                tag.setId(View.generateViewId());
+                tag.setText("tag" + i);
+                tags.add(tag);
+                singlePictureBinding.getRoot().addView(tag);
+            }
+            flow.setReferencedIds(
+                    tags.stream().map(View::getId).mapToInt(i -> i).toArray()
+            );
+        }
+
+        private void removePreviousTags() {
+            Flow flow = singlePictureBinding.getRoot().findViewById(R.id.flow);
+            var ids = flow.getReferencedIds();
+            for (int i:
+                 ids) {
+                var view = singlePictureBinding.getRoot().findViewById(i);
+                singlePictureBinding.getRoot().removeView(view);
+            }
         }
     }
 

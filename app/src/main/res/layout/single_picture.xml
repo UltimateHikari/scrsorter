@@ -65,10 +65,28 @@
 
     </ImageView>
 
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_horizontal_margin"
+        android:layout_marginEnd="@dimen/item_horizontal_margin"
+        app:flow_horizontalStyle="packed"
+        app:flow_horizontalGap="8dp"
+        app:flow_horizontalBias="0"
+        app:flow_verticalStyle="packed"
+        app:flow_verticalGap="8dp"
+        app:flow_wrapMode="chain"
+        app:layout_constraintStart_toEndOf="@id/picture"
+        app:layout_constraintEnd_toStartOf="@id/more"
+        app:layout_constraintTop_toBottomOf="@id/details"
+        >
+    </androidx.constraintlayout.helper.widget.Flow>
+
     <androidx.constraintlayout.widget.Barrier
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        app:constraint_referenced_ids="picture,details"
+        app:constraint_referenced_ids="picture,details,flow"
         app:barrierDirection="bottom"
         />
     <Space
