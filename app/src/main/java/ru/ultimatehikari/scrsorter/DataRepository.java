@@ -15,12 +15,13 @@ import ru.ultimatehikari.scrsorter.data.AppDatabase;
 import ru.ultimatehikari.scrsorter.data.ImageScanWorker;
 import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
+import ru.ultimatehikari.scrsorter.data.entity.PictureEntityWithCategories;
 
 public class DataRepository {
     private static DataRepository instance;
     private final AppDatabase database;
 
-    private final MediatorLiveData<List<PictureEntity>> observablePictures;
+    private final MediatorLiveData<List<PictureEntityWithCategories>> observablePictures;
     private final MediatorLiveData<List<CategoryEntity>> observableCategories;
     private final MediatorLiveData<Boolean> databaseLatch;
 
@@ -33,12 +34,12 @@ public class DataRepository {
         databaseLatch.addSource(database.getDatabaseCreated(),
                 isCreated -> {
                     if(isCreated){
-                        observablePictures.postValue(database.pictureDao().loadAllPictures().getValue());
+                        observablePictures.postValue(database.pictureDao().loadAllPicturesWithCategories().getValue());
                         observableCategories.postValue(database.categoryDao().loadAllCategories().getValue());
                     }
                 });
 
-        observablePictures.addSource(database.pictureDao().loadAllPictures(),
+        observablePictures.addSource(database.pictureDao().loadAllPicturesWithCategories(),
                 observablePictures::postValue);
         observableCategories.addSource(database.categoryDao().loadAllCategories(),
                 observableCategories::postValue);
@@ -55,7 +56,7 @@ public class DataRepository {
         return instance;
     }
 
-    public LiveData<List<PictureEntity>> getPictures() {
+    public LiveData<List<PictureEntityWithCategories>> getPictures() {
         return observablePictures;
     }
     public LiveData<List<CategoryEntity>> getCategories() {

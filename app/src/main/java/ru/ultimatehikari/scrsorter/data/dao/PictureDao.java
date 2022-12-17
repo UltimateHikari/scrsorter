@@ -1,6 +1,8 @@
 package ru.ultimatehikari.scrsorter.data.dao;
 
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -48,15 +50,20 @@ public interface PictureDao {
             cr.pictureId = findIdByUrl(p.getUrl());
             cr.categoryId = p.getCategory().getCategoryId();
             insert_category_crossref(cr);
+            Log.i("CAT", cr.categoryId + "  " + cr.pictureId);
 
             for(Category e: p.getMinorCategories()){
                 var mcr = new MinorCategoryPictureCrossRef();
                 mcr.pictureId = cr.pictureId;
-                mcr.minorCategoryId = e.getCategoryId();
+                mcr.categoryId = e.getCategoryId();
                 insert_minor_category_crossref(mcr);
             }
         }
     }
+
+    @Transaction
+    @Query("SELECT * FROM pictures")
+    LiveData<List<PictureEntityWithCategories>> loadAllPicturesWithCategories();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert_category_crossref(CategoryPictureCrossRef categoryPictureCrossRef);

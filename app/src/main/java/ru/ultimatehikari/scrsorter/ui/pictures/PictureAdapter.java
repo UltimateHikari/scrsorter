@@ -25,13 +25,14 @@ import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.databinding.SinglePictureBinding;
 import ru.ultimatehikari.scrsorter.databinding.SingleTagBinding;
 import ru.ultimatehikari.scrsorter.model.Picture;
+import ru.ultimatehikari.scrsorter.model.PictureWithCategories;
 import ru.ultimatehikari.scrsorter.ui.category.CategoryListFragment;
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PicturesViewHolder> {
 
-    List<? extends Picture> pictures = Collections.emptyList();
+    List<? extends PictureWithCategories> pictures = Collections.emptyList();
 
-    void setPictures(List<? extends Picture> newPictures){
+    void setPictures(List<? extends PictureWithCategories> newPictures){
         pictures = newPictures;
         notifyDataSetChanged();
     }
@@ -69,9 +70,9 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
         }
 
 
-        public void bindData(Picture picture) {
+        public void bindData(PictureWithCategories picture) {
             singlePictureBinding.name.setText(picture.getName());
-            singlePictureBinding.details.setText(picture.getUrl());
+            singlePictureBinding.details.setText(picture.getCategory().getName());
             singlePictureBinding.more.setOnClickListener(
                     Navigation.createNavigateOnClickListener(R.id.action_pictureListFragment_to_zoomImageViewFragment2)
             );
@@ -90,7 +91,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
             }
         }
 
-        public void bindTags(Picture picture, int position) {
+        public void bindTags(PictureWithCategories picture, int position) {
             Flow flow = singlePictureBinding.getRoot().findViewById(R.id.flow);
             var tags = new LinkedList<TextView>();
 

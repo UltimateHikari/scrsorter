@@ -17,6 +17,7 @@ import java.util.List;
 
 import ru.ultimatehikari.scrsorter.data.MockGenerator;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
+import ru.ultimatehikari.scrsorter.data.entity.PictureEntityWithCategories;
 import ru.ultimatehikari.scrsorter.databinding.FragmentPicturesListBinding;
 import ru.ultimatehikari.scrsorter.ui.category.CategoryAdapter;
 import ru.ultimatehikari.scrsorter.ui.pictures.PictureAdapter;
@@ -62,7 +63,7 @@ public class PictureListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void subscribeToViewModel(LiveData<List<PictureEntity>> liveData) {
+    private void subscribeToViewModel(LiveData<List<PictureEntityWithCategories>> liveData) {
         liveData.observe(getViewLifecycleOwner(), pictures -> {
             adapter.setPictures(pictures);
         });

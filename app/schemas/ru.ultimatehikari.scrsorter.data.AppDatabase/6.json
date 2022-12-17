@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "d5a8879d3b4f6617f678ca62b32a966b",
+    "identityHash": "e9fcc6ec1e0fab67113de978533d3227",
     "entities": [
       {
         "tableName": "pictures",
@@ -85,6 +85,32 @@
       },
       {
         "tableName": "CategoryPictureCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`categoryId` INTEGER NOT NULL, `pictureId` INTEGER NOT NULL, PRIMARY KEY(`pictureId`))",
+        "fields": [
+          {
+            "fieldPath": "categoryId",
+            "columnName": "categoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pictureId",
+            "columnName": "pictureId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pictureId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "MinorCategoryPictureCrossRef",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`categoryId` INTEGER NOT NULL, `pictureId` INTEGER NOT NULL, PRIMARY KEY(`categoryId`, `pictureId`))",
         "fields": [
           {
@@ -109,39 +135,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "MinorCategoryPictureCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`minorCategoryId` INTEGER NOT NULL, `pictureId` INTEGER NOT NULL, PRIMARY KEY(`minorCategoryId`, `pictureId`))",
-        "fields": [
-          {
-            "fieldPath": "minorCategoryId",
-            "columnName": "minorCategoryId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "pictureId",
-            "columnName": "pictureId",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "minorCategoryId",
-            "pictureId"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd5a8879d3b4f6617f678ca62b32a966b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e9fcc6ec1e0fab67113de978533d3227')"
     ]
   }
 }

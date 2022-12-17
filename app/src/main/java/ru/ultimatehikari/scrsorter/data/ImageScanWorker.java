@@ -78,7 +78,7 @@ public class ImageScanWorker extends Worker {
             pic.setUrl(cursor.getString(data));
 
             pic.setCategory(new CategoryEntity());
-            pic.getCategory().setCategoryId(0L);
+            pic.getCategory().setCategoryId(1L);
 
             pictures.add(pic);
         }

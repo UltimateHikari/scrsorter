@@ -11,13 +11,14 @@ import java.util.List;
 import ru.ultimatehikari.scrsorter.App;
 import ru.ultimatehikari.scrsorter.DataRepository;
 import ru.ultimatehikari.scrsorter.data.entity.PictureEntity;
+import ru.ultimatehikari.scrsorter.data.entity.PictureEntityWithCategories;
 
 public class PictureListViewModel extends AndroidViewModel {
-    private final LiveData<List<PictureEntity>> listLiveData;
+    private final LiveData<List<PictureEntityWithCategories>> listLiveData;
 
     private final DataRepository repository;
 
-    public LiveData<List<PictureEntity>> getPictures() {
+    public LiveData<List<PictureEntityWithCategories>> getPictures() {
         return listLiveData;
     }
 

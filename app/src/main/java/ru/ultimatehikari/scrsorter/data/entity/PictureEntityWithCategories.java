@@ -19,15 +19,25 @@ import ru.ultimatehikari.scrsorter.model.PictureWithCategories;
 public class PictureEntityWithCategories implements PictureWithCategories {
     @Embedded public PictureEntity picture;
     @Relation(
+            entity = CategoryEntity.class,
             parentColumn = "pictureId",
             entityColumn = "categoryId",
-            associateBy = @Junction(CategoryPictureCrossRef.class)
+            associateBy = @Junction(
+                    value = CategoryPictureCrossRef.class,
+                    parentColumn = "pictureId",
+                    entityColumn = "categoryId"
+            )
     )
     public CategoryEntity category;
     @Relation(
+            entity = CategoryEntity.class,
             parentColumn = "pictureId",
-            entityColumn = "minorCategoryId",
-            associateBy = @Junction(MinorCategoryPictureCrossRef.class)
+            entityColumn = "categoryId",
+            associateBy = @Junction(
+                    value = MinorCategoryPictureCrossRef.class,
+                    parentColumn = "pictureId",
+                    entityColumn = "categoryId"
+            )
     )
     public List<CategoryEntity> minorCategories = Collections.emptyList();
 
