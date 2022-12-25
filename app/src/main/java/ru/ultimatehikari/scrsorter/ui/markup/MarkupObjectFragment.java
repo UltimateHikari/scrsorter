@@ -22,13 +22,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
 import ru.ultimatehikari.scrsorter.databinding.SingleTagBinding;
+import ru.ultimatehikari.scrsorter.model.Category;
 import ru.ultimatehikari.scrsorter.model.Picture;
 import ru.ultimatehikari.scrsorter.model.PictureWithCategories;
 import ru.ultimatehikari.scrsorter.ui.AddCategoryFragment;
@@ -112,9 +116,16 @@ public class MarkupObjectFragment extends Fragment {
     }
 
     private Data collectFormData() {
+        Spinner spinner = getView().findViewById(R.id.main_button);
+        var picture = model.getPictures().getValue().get(position);
+        picture.setCategory((CategoryEntity) spinner.getSelectedItem());
+        picture.setMinorCategories(extractTags());
+
+        Gson gson = new Gson();
+        String key = gson.toJson(picture);
+
         return new Data.Builder()
-                .putInt("PICTURE_ID", getPictureId())
-                .putInt("CATEGORY_ID", getCategoryId())
+                .putString("GsonnedImage", key)
                 .build();
     }
 
@@ -143,12 +154,12 @@ public class MarkupObjectFragment extends Fragment {
         var tags = new LinkedList<TextView>();
 
         removePreviousTags();
-        for(int i = 0; i < position; ++i){
+        for(Category i : picture.getMinorCategories()){
             var tag = SingleTagBinding
                     .inflate(inflater, null,false)
                     .getRoot();
             tag.setId(View.generateViewId());
-            tag.setText("tag" + i);
+            tag.setText(i.getName());
             tags.add(tag);
             ((ConstraintLayout)getView()).addView(tag);
         }
@@ -179,8 +190,23 @@ public class MarkupObjectFragment extends Fragment {
                 .getRoot();
         tag.setId(generatedId);
         tag.setText(category.getName());
+        tag.setHint(category.getCategoryId().toString());
         ((ConstraintLayout)getView()).addView(tag);
 
         flow.setReferencedIds(newids);
+    }
+
+    private List<CategoryEntity> extractTags(){
+        Flow flow = getView().findViewById(R.id.tags_flow);
+        var ids = flow.getReferencedIds();
+        var list = new ArrayList<CategoryEntity>();
+        for(int i : ids){
+            var cat = new CategoryEntity();
+            TextView v = getView().findViewById(i);
+            cat.setName(v.getText().toString());
+            cat.setCategoryId(Long.parseLong(v.getHint().toString()));
+            list.add(cat);
+        }
+        return list;
     }
 }

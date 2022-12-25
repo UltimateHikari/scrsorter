@@ -66,10 +66,10 @@ public interface PictureDao {
     @Query("SELECT * FROM pictures")
     LiveData<List<PictureEntityWithCategories>> loadAllPicturesWithCategories();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert_category_crossref(CategoryPictureCrossRef categoryPictureCrossRef);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert_minor_category_crossref(MinorCategoryPictureCrossRef categoryPictureCrossRef);
 
     @Query("select * from pictures where pictureId = :pictureId")
@@ -87,4 +87,18 @@ public interface PictureDao {
     @Query("SELECT * FROM pictures JOIN picture_categories ON pictures.pictureId = picture_categories.pictureId WHERE picture_categories.categoryId = 1 LIMIT 10")
     LiveData<List<PictureEntityWithCategories>> loadFreshPicturesWithCategories();
 
+    @Transaction
+    default void updatePicture(PictureEntityWithCategories picture){
+        var cr = new CategoryPictureCrossRef();
+        cr.pictureId = picture.getPictureId();
+        cr.categoryId = picture.getCategory().getCategoryId();
+        insert_category_crossref(cr);
+
+        for(Category e: picture.getMinorCategories()) {
+            var mcr = new MinorCategoryPictureCrossRef();
+            mcr.pictureId = cr.pictureId;
+            mcr.categoryId = e.getCategoryId();
+            insert_minor_category_crossref(mcr);
+        }
+    }
 }
