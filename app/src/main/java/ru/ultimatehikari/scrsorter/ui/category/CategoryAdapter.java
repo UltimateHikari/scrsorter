@@ -1,5 +1,6 @@
 package ru.ultimatehikari.scrsorter.ui.category;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -41,8 +42,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         holder.singleCategoryBinding.text.setText(category.getName());
 
+        var args = new Bundle();
+        args.putLong("categoryId", position + 1);
+
         holder.singleCategoryBinding.text.setOnClickListener(
-                Navigation.createNavigateOnClickListener(R.id.action_categoryListFragment_to_pictureListFragment)
+                Navigation.createNavigateOnClickListener(R.id.action_categoryListFragment_to_pictureListFragment, args)
         );
 
 //        holder.singleCategoryBinding.text.setOnClickListener(

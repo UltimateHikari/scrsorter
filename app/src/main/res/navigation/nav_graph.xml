@@ -24,7 +24,11 @@
             app:destination="@id/FirstFragment" />
         <action
             android:id="@+id/action_categoryListFragment_to_pictureListFragment"
-            app:destination="@id/pictureListFragment" />
+            app:destination="@id/pictureListFragment" >
+            <argument
+                android:name="categoryId"
+                android:defaultValue="1" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/pictureListFragment"
@@ -37,6 +41,10 @@
         <action
             android:id="@+id/action_pictureListFragment_to_zoomImageViewFragment2"
             app:destination="@id/zoomImageViewFragment2" />
+        <argument
+            android:name="categoryId"
+            app:argType="long"
+            android:defaultValue="1L" />
     </fragment>
     <fragment
         android:id="@+id/zoomImageViewFragment2"

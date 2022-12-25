@@ -46,7 +46,9 @@ public class PictureListFragment extends Fragment {
 
         setRecyclerView();
 
-        subscribeToViewModel(viewModel.getPictures());
+        Long category_id = getArguments().getLong("categoryId");
+
+        subscribeToViewModel(viewModel.getPicturesById(category_id));
 
         return binding.getRoot();
     }
