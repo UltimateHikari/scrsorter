@@ -1,5 +1,6 @@
 package ru.ultimatehikari.scrsorter.data.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
@@ -22,4 +23,10 @@ public class CategoryEntity implements Category {
     public Long categoryId;
     @ColumnInfo(name = "name")
     public String name;
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
+    }
 }

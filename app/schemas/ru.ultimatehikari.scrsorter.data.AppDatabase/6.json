@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "1758a19708d1c87a3c83590fa635c84b",
+    "identityHash": "9517541f03182ebd757f6968f06748db",
     "entities": [
       {
         "tableName": "pictures",
@@ -83,7 +83,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "CategoryPictureCrossRef",
+        "tableName": "picture_categories",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`categoryId` INTEGER NOT NULL, `pictureId` INTEGER NOT NULL, PRIMARY KEY(`pictureId`))",
         "fields": [
           {
@@ -139,7 +139,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1758a19708d1c87a3c83590fa635c84b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9517541f03182ebd757f6968f06748db')"
     ]
   }
 }

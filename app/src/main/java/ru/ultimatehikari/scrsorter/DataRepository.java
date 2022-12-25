@@ -22,6 +22,7 @@ public class DataRepository {
     private final AppDatabase database;
 
     private final MediatorLiveData<List<PictureEntityWithCategories>> observablePictures;
+    private final MediatorLiveData<List<PictureEntityWithCategories>> observableFreshPictures;
     private final MediatorLiveData<List<CategoryEntity>> observableCategories;
     private final MediatorLiveData<Boolean> databaseLatch;
 
@@ -29,6 +30,7 @@ public class DataRepository {
         this.database = database;
         observablePictures = new MediatorLiveData<>();
         observableCategories = new MediatorLiveData<>();
+        observableFreshPictures = new MediatorLiveData<>();
         databaseLatch = new MediatorLiveData<>();
 
         databaseLatch.addSource(database.getDatabaseCreated(),
@@ -36,6 +38,7 @@ public class DataRepository {
                     if(isCreated){
                         observablePictures.postValue(database.pictureDao().loadAllPicturesWithCategories().getValue());
                         observableCategories.postValue(database.categoryDao().loadAllCategories().getValue());
+                        observableFreshPictures.postValue(database.pictureDao().loadFreshPicturesWithCategories().getValue());
                     }
                 });
 
@@ -43,6 +46,8 @@ public class DataRepository {
                 observablePictures::postValue);
         observableCategories.addSource(database.categoryDao().loadAllCategories(),
                 observableCategories::postValue);
+        observableFreshPictures.addSource(database.pictureDao().loadFreshPicturesWithCategories(),
+                observablePictures::postValue);
     }
 
     public static DataRepository getInstance(AppDatabase database) {
@@ -66,5 +71,9 @@ public class DataRepository {
     public void startImageScan(@NonNull Context context){
         WorkManager.getInstance(context.getApplicationContext())
                 .enqueue(OneTimeWorkRequest.from(ImageScanWorker.class));
+    }
+
+    public LiveData<List<PictureEntityWithCategories>> getFreshPictures() {
+        return observableFreshPictures;
     }
 }

@@ -11,6 +11,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import java.util.List;
+import java.util.Map;
 
 import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
 import ru.ultimatehikari.scrsorter.data.entity.CategoryPictureCrossRef;
@@ -76,4 +77,13 @@ public interface PictureDao {
 
     @Query("select count(*) from pictures")
     int count();
+
+    /*
+     * kinda intended way..
+     */
+
+    @Transaction
+    @Query("SELECT * FROM pictures JOIN picture_categories ON pictures.pictureId = picture_categories.pictureId WHERE categoryId = 1 LIMIT 10")
+    LiveData<List<PictureEntityWithCategories>> loadFreshPicturesWithCategories();
+
 }

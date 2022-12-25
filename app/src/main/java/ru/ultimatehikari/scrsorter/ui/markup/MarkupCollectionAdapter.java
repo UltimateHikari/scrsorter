@@ -1,14 +1,26 @@
 package ru.ultimatehikari.scrsorter.ui.markup;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import java.util.Collections;
+import java.util.List;
+
+import ru.ultimatehikari.scrsorter.data.entity.PictureEntityWithCategories;
+import ru.ultimatehikari.scrsorter.viewmodel.MarkupViewModel;
+
 public class MarkupCollectionAdapter extends FragmentStateAdapter {
-    public MarkupCollectionAdapter(FragmentActivity fragmentActivity) {
+
+    private List<PictureEntityWithCategories> pictures = Collections.emptyList();
+
+    public MarkupCollectionAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
@@ -26,6 +38,12 @@ public class MarkupCollectionAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 10;
+        return pictures.size();
+    }
+
+    public void setPictures(List<PictureEntityWithCategories> pictures) {
+        this.pictures = pictures;
+        Log.i("IMG", "changed!!!" + pictures.size());
+        notifyDataSetChanged();
     }
 }
