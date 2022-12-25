@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.helper.widget.Flow;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.databinding.SinglePictureBinding;
 import ru.ultimatehikari.scrsorter.databinding.SingleTagBinding;
+import ru.ultimatehikari.scrsorter.model.Category;
 import ru.ultimatehikari.scrsorter.model.Picture;
 import ru.ultimatehikari.scrsorter.model.PictureWithCategories;
 import ru.ultimatehikari.scrsorter.ui.category.CategoryListFragment;
@@ -96,12 +98,12 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
             var tags = new LinkedList<TextView>();
 
             removePreviousTags();
-            for(int i = 0; i < position; ++i){
+            for(Category i : picture.getMinorCategories()){
                 var tag = SingleTagBinding
                         .inflate(inflater, null,false)
                         .getRoot();
                 tag.setId(View.generateViewId());
-                tag.setText("tag" + i);
+                tag.setText(i.getName());
                 tags.add(tag);
                 singlePictureBinding.getRoot().addView(tag);
             }
