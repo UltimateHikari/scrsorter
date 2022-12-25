@@ -1,5 +1,6 @@
 package ru.ultimatehikari.scrsorter.ui.pictures;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,8 +76,10 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.Pictures
         public void bindData(PictureWithCategories picture) {
             singlePictureBinding.name.setText(picture.getName());
             singlePictureBinding.details.setText(picture.getCategory().getName());
+            var bun = new Bundle();
+            bun.putString("pictureUrl", picture.getUrl());
             singlePictureBinding.more.setOnClickListener(
-                    Navigation.createNavigateOnClickListener(R.id.action_pictureListFragment_to_zoomImageViewFragment2)
+                    Navigation.createNavigateOnClickListener(R.id.action_pictureListFragment_to_zoomImageViewFragment2,bun)
             );
         }
 

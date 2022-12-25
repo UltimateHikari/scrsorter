@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import ru.ultimatehikari.scrsorter.R;
@@ -130,9 +131,17 @@ public class ZoomImageViewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mVisible = true;
 
+        var path = getArguments().getString("pictureUrl");
+        assert path != null;
+
         mControlsView = binding.fullscreenContentControls;
         mContentView = binding.photoView;
-        mContentView.setImageResource(R.drawable.no_mlny);
+        Glide.with(this)
+                .load(path)
+                .placeholder(R.drawable.no_mlny)
+                .error(R.drawable.no_mlny)
+                .into(mContentView);
+        //mContentView.setImageResource(R.drawable.no_mlny);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
