@@ -26,4 +26,7 @@ public interface CategoryDao {
 
     @Query("select count(*) from categories")
     int count();
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    void addCategory(CategoryEntity categoryEntity);
 }

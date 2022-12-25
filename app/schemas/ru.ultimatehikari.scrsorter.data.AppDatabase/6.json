@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "e9fcc6ec1e0fab67113de978533d3227",
+    "identityHash": "1758a19708d1c87a3c83590fa635c84b",
     "entities": [
       {
         "tableName": "pictures",
@@ -71,14 +71,13 @@
         },
         "indices": [
           {
-            "name": "index_categories_categoryId_name",
+            "name": "index_categories_name",
             "unique": true,
             "columnNames": [
-              "categoryId",
               "name"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_categories_categoryId_name` ON `${TABLE_NAME}` (`categoryId`, `name`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_categories_name` ON `${TABLE_NAME}` (`name`)"
           }
         ],
         "foreignKeys": []
@@ -140,7 +139,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e9fcc6ec1e0fab67113de978533d3227')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1758a19708d1c87a3c83590fa635c84b')"
     ]
   }
 }

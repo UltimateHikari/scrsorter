@@ -15,7 +15,7 @@ import ru.ultimatehikari.scrsorter.model.Picture;
 
 @Getter
 @Setter
-@Entity(tableName = "categories", indices = {@Index(value = {"categoryId", "name"}, unique = true)})
+@Entity(tableName = "categories", indices = {@Index(value = {"name"}, unique = true)})
 public class CategoryEntity implements Category {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "categoryId")
