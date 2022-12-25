@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.helper.widget.Flow;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -21,9 +23,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.LinkedList;
+
 import ru.ultimatehikari.scrsorter.R;
 import ru.ultimatehikari.scrsorter.data.entity.CategoryEntity;
+import ru.ultimatehikari.scrsorter.databinding.SingleTagBinding;
 import ru.ultimatehikari.scrsorter.model.Picture;
+import ru.ultimatehikari.scrsorter.model.PictureWithCategories;
 import ru.ultimatehikari.scrsorter.ui.AddCategoryFragment;
 import ru.ultimatehikari.scrsorter.viewmodel.CategoryListViewModel;
 import ru.ultimatehikari.scrsorter.viewmodel.MarkupViewModel;
@@ -33,6 +39,8 @@ public class MarkupObjectFragment extends Fragment {
     Integer position = 0;
 
     private MarkupViewModel model = null;
+    private LayoutInflater inflater;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class MarkupObjectFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        this.inflater = inflater;
         return inflater.inflate(R.layout.fragment_markup_object, container, false);
     }
 
@@ -73,6 +82,7 @@ public class MarkupObjectFragment extends Fragment {
 
         bindPicture(view, model.getPictures().getValue().get(position));
 
+        bindTags(view, model.getPictures().getValue().get(position), position);
     }
 
     public void bindPicture(View view, Picture picture) {
@@ -116,4 +126,35 @@ public class MarkupObjectFragment extends Fragment {
         spinner.setAdapter(adapter);
         spinner.setSelection((model.getPictures().getValue().get(position).category.categoryId.intValue() - 1) % spinner.getCount());
     }
+
+    public void bindTags(View view, PictureWithCategories picture, int position) {
+        Flow flow = view.findViewById(R.id.tags_flow);
+        var tags = new LinkedList<TextView>();
+
+        removePreviousTags(view);
+        for(int i = 0; i < position; ++i){
+            var tag = SingleTagBinding
+                    .inflate(inflater, null,false)
+                    .getRoot();
+            tag.setId(View.generateViewId());
+            tag.setText("tag" + i);
+            tags.add(tag);
+            ((ConstraintLayout)view).addView(tag);
+        }
+        flow.setReferencedIds(
+                tags.stream().map(View::getId).mapToInt(i -> i).toArray()
+        );
+    }
+
+    private void removePreviousTags(View view) {
+        Flow flow = view.findViewById(R.id.tags_flow);
+        var ids = flow.getReferencedIds();
+        for (int i:
+                ids) {
+            var v = view.findViewById(i);
+            ((ConstraintLayout)view).removeView(v);
+        }
+    }
+
+    private void pushTag
 }

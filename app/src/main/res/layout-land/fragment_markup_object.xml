@@ -99,44 +99,60 @@
             />
     </LinearLayout>
 
-
-
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/tags_flow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/item_vertical_margin"
+        android:layout_marginStart="@dimen/item_horizontal_margin"
+        android:layout_marginEnd="@dimen/item_horizontal_margin"
+        app:flow_horizontalStyle="packed"
+        app:flow_horizontalGap="8dp"
+        app:flow_verticalStyle="packed"
+        app:flow_verticalGap="8dp"
+        app:flow_wrapMode="chain"
         app:layout_constraintStart_toStartOf="@id/guideline_center"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintTop_toBottomOf="@id/add_linear"
         app:layout_constraintBottom_toTopOf="@id/apply_button"
-        app:constraint_referenced_ids="todo_1,todo_2,todo_3">
-
+        >
     </androidx.constraintlayout.helper.widget.Flow>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tag"
-        android:id="@+id/todo_1"
-        android:backgroundTint="@color/gray"
-        />
+<!--    <androidx.constraintlayout.helper.widget.Flow-->
+<!--        android:id="@+id/tags_flow"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/item_vertical_margin"-->
+<!--        app:layout_constraintStart_toStartOf="@id/guideline_center"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/guideline_end"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/add_linear"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/apply_button"-->
+<!--        app:constraint_referenced_ids="todo_1,todo_2,todo_3">-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tag"
-        android:id="@+id/todo_2"
-        android:backgroundTint="@color/gray"
-        />
+<!--    </androidx.constraintlayout.helper.widget.Flow>-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tag"
-        android:backgroundTint="@color/gray"
-        android:id="@+id/todo_3"
-        />
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/tag"-->
+<!--        android:id="@+id/todo_1"-->
+<!--        android:backgroundTint="@color/gray"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/tag"-->
+<!--        android:id="@+id/todo_2"-->
+<!--        android:backgroundTint="@color/gray"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/tag"-->
+<!--        android:backgroundTint="@color/gray"-->
+<!--        android:id="@+id/todo_3"-->
+<!--        />-->
 
     <Button
         android:id="@+id/apply_button"
