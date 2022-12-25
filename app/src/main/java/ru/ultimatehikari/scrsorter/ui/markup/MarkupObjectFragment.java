@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import ru.ultimatehikari.scrsorter.R;
@@ -82,7 +83,17 @@ public class MarkupObjectFragment extends Fragment {
 
         bindPicture(view, model.getPictures().getValue().get(position));
 
-        bindTags(view, model.getPictures().getValue().get(position), position);
+        bindTags(model.getPictures().getValue().get(position), position);
+
+        Spinner spinner = view.findViewById(R.id.main_button);
+        var add_button =
+                ((Button) view.findViewById(R.id.add_button));
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pushTag((CategoryEntity) spinner.getSelectedItem());
+            }
+        });
     }
 
     public void bindPicture(View view, Picture picture) {
@@ -127,11 +138,11 @@ public class MarkupObjectFragment extends Fragment {
         spinner.setSelection((model.getPictures().getValue().get(position).category.categoryId.intValue() - 1) % spinner.getCount());
     }
 
-    public void bindTags(View view, PictureWithCategories picture, int position) {
-        Flow flow = view.findViewById(R.id.tags_flow);
+    public void bindTags(PictureWithCategories picture, int position) {
+        Flow flow = getView().findViewById(R.id.tags_flow);
         var tags = new LinkedList<TextView>();
 
-        removePreviousTags(view);
+        removePreviousTags();
         for(int i = 0; i < position; ++i){
             var tag = SingleTagBinding
                     .inflate(inflater, null,false)
@@ -139,22 +150,37 @@ public class MarkupObjectFragment extends Fragment {
             tag.setId(View.generateViewId());
             tag.setText("tag" + i);
             tags.add(tag);
-            ((ConstraintLayout)view).addView(tag);
+            ((ConstraintLayout)getView()).addView(tag);
         }
         flow.setReferencedIds(
                 tags.stream().map(View::getId).mapToInt(i -> i).toArray()
         );
     }
 
-    private void removePreviousTags(View view) {
-        Flow flow = view.findViewById(R.id.tags_flow);
+    private void removePreviousTags() {
+        Flow flow = getView().findViewById(R.id.tags_flow);
         var ids = flow.getReferencedIds();
         for (int i:
                 ids) {
-            var v = view.findViewById(i);
-            ((ConstraintLayout)view).removeView(v);
+            var v = getView().findViewById(i);
+            ((ConstraintLayout)getView()).removeView(v);
         }
     }
 
-    private void pushTag
+    private void pushTag(CategoryEntity category){
+        Flow flow = getView().findViewById(R.id.tags_flow);
+        var ids = flow.getReferencedIds();
+        var newids = Arrays.copyOf(ids, ids.length + 1);
+        var generatedId = View.generateViewId();
+        newids[ids.length] = generatedId;
+
+        var tag = SingleTagBinding
+                .inflate(inflater, null,false)
+                .getRoot();
+        tag.setId(generatedId);
+        tag.setText(category.getName());
+        ((ConstraintLayout)getView()).addView(tag);
+
+        flow.setReferencedIds(newids);
+    }
 }
