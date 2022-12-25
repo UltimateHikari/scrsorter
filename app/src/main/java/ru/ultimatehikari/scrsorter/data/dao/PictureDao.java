@@ -80,10 +80,11 @@ public interface PictureDao {
 
     /*
      * kinda intended way..
+     * but dark orm magic doesnt work..
      */
 
     @Transaction
-    @Query("SELECT * FROM pictures JOIN picture_categories ON pictures.pictureId = picture_categories.pictureId WHERE categoryId = 1 LIMIT 10")
+    @Query("SELECT * FROM pictures JOIN picture_categories ON pictures.pictureId = picture_categories.pictureId WHERE picture_categories.categoryId = 1 LIMIT 10")
     LiveData<List<PictureEntityWithCategories>> loadFreshPicturesWithCategories();
 
 }

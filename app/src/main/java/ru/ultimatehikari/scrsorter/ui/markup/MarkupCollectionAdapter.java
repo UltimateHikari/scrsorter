@@ -38,7 +38,7 @@ public class MarkupCollectionAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return pictures.size();
+        return Math.min(pictures.size(), 10);
     }
 
     public void setPictures(List<PictureEntityWithCategories> pictures) {

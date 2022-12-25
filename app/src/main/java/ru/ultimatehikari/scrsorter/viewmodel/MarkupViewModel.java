@@ -9,11 +9,13 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ru.ultimatehikari.scrsorter.App;
 import ru.ultimatehikari.scrsorter.DataRepository;
@@ -40,7 +42,13 @@ public class MarkupViewModel extends AndroidViewModel {
         repository = ((App) app).getRepository();
 
         listLiveData = repository.getCategories();
-        listPicturesLiveData = repository.getPictures();
+        /*
+         * check freshModels in dao for reason
+         */
+        listPicturesLiveData = Transformations.map(repository.getPictures(), input -> {
+            return input.stream()
+                    .filter(p -> {return p.category.categoryId == 1;}).collect(Collectors.toList());
+        });
 
     }
 
